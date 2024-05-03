@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include "menu.h"
-#include "criarpersonagem.h"
 typedef struct PERSONAGEM{
 		char nome[51];
 		int HP;
