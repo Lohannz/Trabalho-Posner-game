@@ -31,7 +31,7 @@ void limpar_tela();
 int main(){
 	int parar = 1;
 	menu();
-	
+	PERSONAGEM personagem;
 	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
@@ -43,9 +43,10 @@ int main(){
 	fclose(gravar);
 	
 	//ANDAMENTO DA HISTÓRIA
-	while(parar){
+	
+	/*while(parar){
 		atual();
-	}
+	}*/
 	return 0;
 }
 //CRIA PERSONAGEM
