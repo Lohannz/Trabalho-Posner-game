@@ -1,9 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+
 #include "struct.h"
 #include "combate.h"
-
+#include "logo.h"
 
 
 #define TAM_TEX_MAXIMO 400
@@ -69,9 +70,8 @@ void menu_principal(){
     int escolha=0; int rodando = 1;
 
 	while(rodando){
-		
-		printf("Escolha entre as opcoes numeradas:\n\n|1-Novo Jogo\n|2-Continuar\n|3-Ranking\n|4-Desenvolvedores\n|0-Fechar Programa\n\n");
-		printf("Digite o numero da opcao: ");
+		logo();
+		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo\n\t\t\t\t\t\t\t\t\t|2-Continuar\n\t\t\t\t\t\t\t\t\t|3-Ranking\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\n");
 		scanf("%d", &escolha);
 
         switch (escolha){
@@ -92,7 +92,9 @@ void menu_principal(){
         case 4:
             limpar_tela();
             printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan");
+			
             printf("clique em qualquer tecla para voltar");
+			system("pause");
             break;
         
 
