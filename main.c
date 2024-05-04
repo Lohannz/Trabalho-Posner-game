@@ -23,19 +23,21 @@ PERSONAGEM *novo_personagem;
 
 int main(){
 	
-/*	INIMIGO esqueleto;
+	INIMIGO esqueleto;
 	strcpy(esqueleto.nome,"esqueleto");
 	esqueleto.id = 1;
 	esqueleto.HP = 100;
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
 	esqueleto.posicao = 1;
-*/
+
 	menu_principal(); 
+	combate(novo_personagem, &esqueleto);
 
 	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
+	
 	char texto[TAM_TEX_MAXIMO];
 	fgets(texto,TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
@@ -59,12 +61,13 @@ void menu_principal(){
 		logo();
 		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo\n\t\t\t\t\t\t\t\t\t|2-Continuar\n\t\t\t\t\t\t\t\t\t|3-Ranking\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\n");
 		scanf("%d", &escolha);
-
+		limpar_tela();
         switch (escolha){
         case 1:
         //chama a criação de personagem
             
 			novo_personagem = criarPersonagem();
+			rodando = 0;
             break;
         case 2:
             limpar_tela();
@@ -82,6 +85,9 @@ void menu_principal(){
             printf("clique em qualquer tecla para voltar");
 			system("pause");
             break;
+		case 0:
+			rodando = 0;
+			break;
         
 
         default:
@@ -99,6 +105,7 @@ PERSONAGEM *criarPersonagem(){
 	
 	while(classe < 1 || classe > 3){
 		scanf("%d", &classe);
+		limpar_tela();
 		switch (classe){
 		case 1:
 			printf("Voce escolheu o guerreiro");
@@ -120,7 +127,7 @@ PERSONAGEM *criarPersonagem(){
 			break;
 		}	
 	}
-	
+	limpar_tela();
 	printf("\nAgora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);
