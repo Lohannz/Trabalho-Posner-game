@@ -43,7 +43,7 @@ int main(){
 	fclose(gravar);
 	
 	//ANDAMENTO DA HISTÓRIA
-	
+
 	/*while(parar){
 		atual();
 	}*/
@@ -85,7 +85,7 @@ PERSONAGEM *criarPersonagem(){
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", personagem->HP, personagem->ATK, personagem->DEF);
 	return personagem;
 }
-
+//FUNÇÃO MENU
 void menu(){
 	int escolha=0, parar=1;
 	//char nickname[51]
