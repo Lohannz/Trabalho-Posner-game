@@ -26,6 +26,5 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
 	esqueleto.DEF = 1;
 	esqueleto.posicao = 1;
 
-	
 }
 
