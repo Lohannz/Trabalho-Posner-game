@@ -23,25 +23,26 @@ PERSONAGEM *novo_personagem;
 
 int main(){
 	
-/*	INIMIGO esqueleto;
+	INIMIGO esqueleto;
 	strcpy(esqueleto.nome,"esqueleto");
 	esqueleto.id = 1;
 	esqueleto.HP = 100;
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
 	esqueleto.posicao = 1;
-*/
-	menu_principal(); 
+
+	menu_principal();
+	combate(novo_personagem, &esqueleto); 
 
 	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
-	FILE *gravar;
+	/*FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
 	char texto[TAM_TEX_MAXIMO];
 	fgets(texto,TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
 	fgets(texto, TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
-	fclose(gravar);
+	fclose(gravar);*/
 	
 	//ANDAMENTO DA HISTÓRIA
 
@@ -65,6 +66,7 @@ void menu_principal(){
         //chama a criação de personagem
             
 			novo_personagem = criarPersonagem();
+			rodando = 0;
             break;
         case 2:
             limpar_tela();
@@ -82,7 +84,11 @@ void menu_principal(){
             printf("clique em qualquer tecla para voltar");
 			system("pause");
             break;
-        
+            
+        case 0:
+        	limpar_tela();
+        	rodando = 0;
+        	break;
 
         default:
             break;
