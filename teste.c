@@ -8,7 +8,8 @@ typedef struct PERSONAGEM{
 		int ATK;
 		int DEF;
 		int posicao;
-	}PERSONAGEM;
+}PERSONAGEM;
+
 typedef struct INIMIGO{
 		char nome[50];
 		int HP;
@@ -21,11 +22,10 @@ void atual();
 void mover(int posicao, PERSONAGEM *personagem);
 void combate(PERSONAGEM *personagem, INIMIGO *inimigo);
 void menu();
-PERSONAGEM *criarPersonagem();
 int rolagem_dado(int faces);
 void status_personagem(PERSONAGEM personagem);
 void limpar_tela();
-
+PERSONAGEM *criarPersonagem();
 
 
 int main(){
