@@ -17,6 +17,7 @@ void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
 int rolagem_dado(int faces);// roda um dado
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 void limpar_tela();//limpa o terminal
+void final();//tela de final de jogo, recordes etc
 PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
