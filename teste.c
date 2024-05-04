@@ -9,10 +9,17 @@ typedef struct PERSONAGEM{
 		int DEF;
 		int posicao;
 	}PERSONAGEM;
-
+typedef struct INIMIGO{
+		char nome[50];
+		int HP;
+		int ATK;
+		int DEF;
+		int posicao;
+}INIMIGO;
 
 void atual();
 void mover(int posicao, PERSONAGEM *personagem);
+void combate(PERSONAGEM *personagem, INIMIGO *inimigo);
 void menu();
 PERSONAGEM *criarPersonagem();
 int rolagem_dado(int faces);
@@ -25,6 +32,7 @@ int main(){
 	int parar = 1;
 	menu();
 	
+	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
 	char texto[TAM_TEX_MAXIMO];
@@ -33,13 +41,14 @@ int main(){
 	fgets(texto, TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
 	fclose(gravar);
-
+	
+	//ANDAMENTO DA HISTÓRIA
 	while(parar){
 		atual();
 	}
 	return 0;
 }
-
+//CRIA PERSONAGEM
 PERSONAGEM *criarPersonagem(){
 	PERSONAGEM *personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
 	int classe=0;
@@ -75,6 +84,7 @@ PERSONAGEM *criarPersonagem(){
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", personagem->HP, personagem->ATK, personagem->DEF);
 	return personagem;
 }
+
 void menu(){
 	int escolha=0, parar=1;
 	//char nickname[51]
@@ -160,14 +170,17 @@ void menu(){
 	
 	}
 }
+//PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
 void status_personagem(PERSONAGEM personagem){
 	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
 }
+//ROLA DADOS PARA A BATALHA
 int rolagem_dado(int faces){
 	int resultado;
 	resultado = rand() % faces + 1;
 	return resultado;
 }
+//LIMPA O TERMINAL
 void limpar_tela(){
 	system("cls");
 }
