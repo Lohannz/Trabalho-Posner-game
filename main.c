@@ -1,28 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
 #include "struct.h"
 #include "combate.h"
 #include "logo.h"
 
-
 #define TAM_TEX_MAXIMO 400
 
-
-// função void load() para carregar o jogo anterior.
-//void load();
-
-void atual();
-
-void mover(int posicao, PERSONAGEM *personagem);
-void combate(PERSONAGEM *atacante, INIMIGO *inimigo);
-void menu_principal();
-int rolagem_dado(int faces);
-void status_personagem(PERSONAGEM personagem);
-void limpar_tela();
-
-PERSONAGEM *criarPersonagem();
+void save();// funções que gravam e carregam informações do jogo
+void load();//
+void menu_principal();//menu principal do jogo
+void atual(int pagina);// diz em que pagina/parte o personagem está
+void mover(int posicao, PERSONAGEM *personagem);//ação de mover
+void olhar(int posicao);//ação de olhar a posição do jogador
+void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
+int rolagem_dado(int faces);// roda um dado
+void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
+void limpar_tela();//limpa o terminal
+PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
 int main(){
@@ -35,10 +30,8 @@ int main(){
 	esqueleto.DEF = 1;
 	esqueleto.posicao = 1;
 */
-
 	menu_principal(); 
 
-	
 	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
@@ -57,14 +50,6 @@ int main(){
 
 	//free(novo_personagem); //liberar memória alocada
 	return 0;
-}
-
-//PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
-void status_personagem(PERSONAGEM personagem){
-	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
-}
-void limpar_tela(){
-	system("cls");
 }
 void menu_principal(){
     int escolha=0; int rodando = 1;
@@ -139,4 +124,11 @@ PERSONAGEM *criarPersonagem(){
 	scanf("%s", novo_personagem->nome);
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);
 	return novo_personagem;
+}
+//PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
+void status_personagem(PERSONAGEM personagem){
+	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
+}
+void limpar_tela(){
+	system("cls");
 }
