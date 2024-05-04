@@ -1,19 +1,42 @@
 #include<stdio.h>
 #include <stdlib.h>
+#define TAM_TEX_MAXIMO 400
 
 typedef struct PERSONAGEM{
-		char nome[51];
+		char nome[50];
 		int HP;
 		int ATK;
 		int DEF;
+		int posicao;
 	}PERSONAGEM;
-	
+
+
+void atual();
+void mover(int posicao, PERSONAGEM *personagem);
 void menu();
 PERSONAGEM *criarPersonagem();
+int rolagem_dado(int faces);
+void status_personagem(PERSONAGEM personagem);
+void limpar_tela();
+
+
 
 int main(){
-	
+	int parar = 1;
 	menu();
+	
+	FILE *gravar;
+	gravar = fopen("historia.dat", "wb");
+	char texto[TAM_TEX_MAXIMO];
+	fgets(texto,TAM_TEX_MAXIMO, stdin);
+	fwrite(texto, sizeof(texto), 1, gravar);
+	fgets(texto, TAM_TEX_MAXIMO, stdin);
+	fwrite(texto, sizeof(texto), 1, gravar);
+	fclose(gravar);
+
+	while(parar){
+		atual();
+	}
 	return 0;
 }
 
@@ -52,8 +75,6 @@ PERSONAGEM *criarPersonagem(){
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", personagem->HP, personagem->ATK, personagem->DEF);
 	return personagem;
 }
-
-
 void menu(){
 	int escolha=0, parar=1;
 	//char nickname[51]
@@ -66,6 +87,7 @@ void menu(){
 		
 		if(escolha == 1){
 			system("cls");
+			escolha = 0;
 		/*printf("Bem vindo a criacao de personagem!\n\n");
 			printf("Digite o seu nickname(no maximo 50 caracteres): ");
 			scanf("%s", nickname);
@@ -74,7 +96,9 @@ void menu(){
 			PERSONAGEM *personagem = criarPersonagem();
 	
 			printf("\n\nDigite 1 para voltar ao menu e 0 para fechar o jogo: ");
+
 			scanf("%d", &escolha);
+			
 			if(escolha == 1){
 				parar = 1;
 				system("cls");
@@ -135,4 +159,15 @@ void menu(){
 		}
 	
 	}
+}
+void status_personagem(PERSONAGEM personagem){
+	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
+}
+int rolagem_dado(int faces){
+	int resultado;
+	resultado = rand() % faces + 1;
+	return resultado;
+}
+void limpar_tela(){
+	system("cls");
 }
