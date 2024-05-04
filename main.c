@@ -1,33 +1,39 @@
 #include<stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 #include<string.h>
 #include "struct.h"
 #include "combate.h"
-#include "menu_principal.h"
+
+
 
 #define TAM_TEX_MAXIMO 400
 
 
-void load();
+// função void load() para carregar o jogo anterior.
+//void load();
+
 void atual();
+
 void mover(int posicao, PERSONAGEM *personagem);
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);
-void menu();
+void menu_principal();
 int rolagem_dado(int faces);
 void status_personagem(PERSONAGEM personagem);
 void limpar_tela();
-PERSONAGEM *criarPersonagem();
 
+PERSONAGEM *criarPersonagem();
+PERSONAGEM *novo_personagem;
 
 int main(){
-	PERSONAGEM *personagem = NULL;
-	INIMIGO esqueleto;
+	
+/*	INIMIGO esqueleto;
 	strcpy(esqueleto.nome,"esqueleto");
 	esqueleto.id = 1;
 	esqueleto.HP = 100;
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
 	esqueleto.posicao = 1;
+*/
 
 	menu_principal(); 
 
@@ -48,8 +54,52 @@ int main(){
 		atual();
 	}*/
 
-	free(personagem); // Liberar memória alocada
+	//free(novo_personagem); //liberar memória alocada
 	return 0;
+}
+
+//PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
+void status_personagem(PERSONAGEM personagem){
+	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
+}
+void limpar_tela(){
+	system("cls");
+}
+void menu_principal(){
+    int escolha=0; int rodando = 1;
+
+	while(rodando){
+		
+		printf("Escolha entre as opcoes numeradas:\n\n|1-Novo Jogo\n|2-Continuar\n|3-Ranking\n|4-Desenvolvedores\n|0-Fechar Programa\n\n");
+		printf("Digite o numero da opcao: ");
+		scanf("%d", &escolha);
+
+        switch (escolha){
+        case 1:
+        //chama a criação de personagem
+            
+			novo_personagem = criarPersonagem();
+            break;
+        case 2:
+            limpar_tela();
+            //load();
+            break;
+        
+        case 3:
+            printf("Ranking...");
+            break;
+        
+        case 4:
+            limpar_tela();
+            printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan");
+            printf("clique em qualquer tecla para voltar");
+            break;
+        
+
+        default:
+            break;
+        }  
+    }
 }
 //CRIA PERSONAGEM
 PERSONAGEM *criarPersonagem(){
@@ -88,12 +138,3 @@ PERSONAGEM *criarPersonagem(){
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);
 	return novo_personagem;
 }
-//PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
-void status_personagem(PERSONAGEM personagem){
-	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
-}
-//LIMPA O TERMINAL
-void limpar_tela(){
-	system("cls");
-}
-
