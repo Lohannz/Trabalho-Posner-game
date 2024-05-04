@@ -9,7 +9,7 @@ typedef struct _personagem{
 
 // padrao inimigo
 typedef struct _inimigo{
-        int id;
+        	int id;
 		char nome[50];
 		int HP;
 		int ATK;
