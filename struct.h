@@ -7,6 +7,7 @@ typedef struct _personagem{
 		int posicao;
 }PERSONAGEM;
 
+// padrao inimigo
 typedef struct _inimigo{
         int id;
 		char nome[50];
@@ -15,4 +16,3 @@ typedef struct _inimigo{
 		int DEF;
 		int posicao;
 }INIMIGO;
-
