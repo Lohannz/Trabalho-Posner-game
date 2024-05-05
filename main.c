@@ -27,8 +27,9 @@ int main(){
 	strcpy(esqueleto.nome,"esqueleto");
 	esqueleto.id = 1;
 	esqueleto.HP = 100;
-	esqueleto.ATK = 2;
-	esqueleto.DEF = 1;
+	esqueleto.ATK = 20;
+	esqueleto.DEF = 10;
+	esqueleto.SPD = 10;
 	esqueleto.posicao = 1;
 
 	menu_principal();
@@ -109,20 +110,23 @@ PERSONAGEM *criarPersonagem(){
 		case 1:
 			printf("Voce escolheu o guerreiro");
 			novo_personagem->HP = 120;
-			novo_personagem->ATK = 2;
-			novo_personagem->DEF = 2;
+			novo_personagem->ATK = 20;
+			novo_personagem->DEF = 20;
+			novo_personagem->SPD = 10;
 			break;
 		case 2:
 			printf("Voce escolheu o arqueiro");
 			novo_personagem->HP = 100;
-			novo_personagem->ATK = 4;
-			novo_personagem->DEF = 1;
+			novo_personagem->ATK = 40;
+			novo_personagem->DEF = 10;
+			novo_personagem->SPD = 30;
 			break;
 		case 3:
 			printf("Voce escolheu o paladino");
 			novo_personagem->HP = 130;
-			novo_personagem->ATK = 1;
-			novo_personagem->DEF = 4;
+			novo_personagem->ATK = 10;
+			novo_personagem->DEF = 40;
+			novo_personagem->SPD = 9;
 			break;
 		}	
 	}

@@ -4,6 +4,7 @@ typedef struct _personagem{
 		int HP;
 		int ATK;
 		int DEF;
+		int SPD;
 		int posicao;
 }PERSONAGEM;
 
@@ -14,5 +15,6 @@ typedef struct _inimigo{
 		int HP;
 		int ATK;
 		int DEF;
+		int SPD;
 		int posicao;
 }INIMIGO;
