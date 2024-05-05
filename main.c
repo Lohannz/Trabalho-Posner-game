@@ -1,10 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<time.h>
 #include "struct.h"
 #include "combate.h"
 #include "logo.h"
 
+int pagina = 1;
 #define TAM_TEX_MAXIMO 400
 
 void save();// funções que gravam e carregam informações do jogo
@@ -31,30 +33,36 @@ int main(){
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
 	esqueleto.SPD = 10;
-	esqueleto.posicao = 1;
+	esqueleto.posicao = 0;
+
 	menu_principal();
 	combate(novo_personagem, &esqueleto);
-	while(rodando){	
-	
-	int nova_posicao;
-	char comando;
-	atual(novo_personagem->posicao);
-	
-	scanf("%c", comando);
 
+	while(rodando){	
+	int nova_posicao;
+	
+	
+	char comando;
 	limpar_tela();
+
+	atual(novo_personagem->posicao);
+	imprimir_menu();
+	scanf("%c", &comando);
 	switch (comando){
 		case 'O':
 			olhar(novo_personagem->posicao);
+			getchar();
 			break;
 		case 'S':
 			status_personagem(*novo_personagem);
+			pausar();
 			break;
 		case 'M':
-			
 			printf("digite a nova posicao: ");
-			scanf("%d", &nova_posicao);
+			scanf("%i", &nova_posicao);
 			mover(nova_posicao, novo_personagem);
+			pausar();
+			break;
 		case 'C':
 			combate(novo_personagem, &esqueleto);
 			break;
@@ -85,7 +93,7 @@ int main(){
 		atual();
 	}*/
 
-	//free(novo_personagem); //liberar memória alocada
+	free(novo_personagem); //liberar memória alocada
 	return 0;
 }
 void menu_principal(){
@@ -115,9 +123,7 @@ void menu_principal(){
         case 4:
             limpar_tela();
             printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan\n");
-			
-            printf("clique em qualquer tecla para voltar");
-			system("pause");
+            pausar();
             break;
 		case 0:
 			rodando = 0;
@@ -164,11 +170,14 @@ PERSONAGEM *criarPersonagem(){
 			break;
 		}	
 	}
-	novo_personagem->posicao = 1;
+	pausar();
+	novo_personagem->posicao = 0;
 	limpar_tela();
-	printf("\nAgora, escolha o seu nome: ");
+	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
+	limpar_tela();
 	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);
+	pausar();
 	return novo_personagem;
 }
 //PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
@@ -196,8 +205,17 @@ void olhar(int posicao){
 	printf("%s", texto);
 	fclose(fp);
 }
-void mover(int posicao, PERSONAGEM *personagem){
+void mover(int posicao, PERSONAGEM *novo_personagem){
 	novo_personagem->posicao = posicao;
-	printf("voce avancou para a pagina %i", posicao);
+	printf("voce avancou para a pagina %i\n", posicao);
 }
 
+void pausar() {
+    
+    fflush(stdin);
+    getchar();
+}
+void imprimir_menu()	
+		{
+		printf("%10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M numero] Mover", "[C] combate", "[Q] Sair");
+		}

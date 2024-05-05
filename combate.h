@@ -42,5 +42,5 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         }
     turno++;    
     }
-    
+    pausar();
 }
