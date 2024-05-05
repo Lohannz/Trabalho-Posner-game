@@ -51,7 +51,7 @@ int main(){
 	switch (comando){
 		case 'O':
 			olhar(novo_personagem->posicao);
-			getchar();
+			pausar();
 			break;
 		case 'S':
 			status_personagem(*novo_personagem);
@@ -217,5 +217,5 @@ void pausar() {
 }
 void imprimir_menu()	
 		{
-		printf("%10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M numero] Mover", "[C] combate", "[Q] Sair");
+		printf("%10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair");
 		}
