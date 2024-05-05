@@ -9,6 +9,7 @@
 int pagina = 1;
 #define TAM_TEX_MAXIMO 400
 
+void imprimir_menu();
 void save();// funções que gravam e carregam informações do jogo
 void load();//
 void menu_principal();//menu principal do jogo
@@ -101,8 +102,14 @@ void menu_principal(){
 
 	while(rodando){
 		logo();
-		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo\n\t\t\t\t\t\t\t\t\t|2-Continuar\n\t\t\t\t\t\t\t\t\t|3-Ranking\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\n");
+		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",sleep(1));
+		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", sleep(1));
+		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", sleep(1));
+		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", sleep(1));
+		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", sleep(1));
+
 		scanf("%d", &escolha);
+		
 		limpar_tela();
         switch (escolha){
         case 1:
@@ -141,8 +148,11 @@ PERSONAGEM *criarPersonagem(){
 	PERSONAGEM *novo_personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
 	int classe=0;
 	
-	printf("Primeiro de tudo, escolha sua classe:\n|1-Guerreiro\n|2-Arqueiro\n|3-Paladino\n");
-	
+	printf("Primeiro de tudo, escolha sua classe:\n");
+	printf("|1-Guerreiro\n", sleep(1));
+	printf("|2-Arqueiro\n",sleep(1));
+	printf("|3-Paladino\n", sleep(1));
+	printf("Sua escolha:", sleep(1));
 	while(classe < 1 || classe > 3){
 		scanf("%d", &classe);
 		limpar_tela();
@@ -169,14 +179,15 @@ PERSONAGEM *criarPersonagem(){
 			novo_personagem->SPD = 9;
 			break;
 		}	
-	}
-	pausar();
+	}sleep(1);
 	novo_personagem->posicao = 0;
 	limpar_tela();
 	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
 	limpar_tela();
-	printf("Seu personagem foi criado!\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i", novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);
+	sleep(1);
+	printf("Seu personagem foi criado!");
+	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,sleep(1));
 	pausar();
 	return novo_personagem;
 }
