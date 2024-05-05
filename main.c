@@ -22,6 +22,7 @@ PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
 int main(){
+	int rodando = 1;
 	
 	INIMIGO esqueleto;
 	strcpy(esqueleto.nome,"esqueleto");
@@ -29,15 +30,48 @@ int main(){
 	esqueleto.HP = 100;
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
+	esqueleto.SPD = 10;
 	esqueleto.posicao = 1;
-
-	menu_principal(); 
+	menu_principal();
 	combate(novo_personagem, &esqueleto);
+	while(rodando){	
+	
+	int nova_posicao;
+	char comando;
+	atual(novo_personagem->posicao);
+	
+	scanf("%c", comando);
+
+	limpar_tela();
+	switch (comando){
+		case 'O':
+			olhar(novo_personagem->posicao);
+			break;
+		case 'S':
+			status_personagem(*novo_personagem);
+			break;
+		case 'M':
+			
+			printf("digite a nova posicao: ");
+			scanf("%d", &nova_posicao);
+			mover(nova_posicao, novo_personagem);
+		case 'C':
+			combate(novo_personagem, &esqueleto);
+			break;
+		case 'Q':
+			rodando = 0;
+			break;
+		
+		default:
+			printf("comando invalido\n");
+			break;
+		}
+	}
+	
 
 	//GRAVAÇÃO DA POSIÇÃO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
-	
 	char texto[TAM_TEX_MAXIMO];
 	fgets(texto,TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
@@ -80,7 +114,7 @@ void menu_principal(){
         
         case 4:
             limpar_tela();
-            printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan");
+            printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan\n");
 			
             printf("clique em qualquer tecla para voltar");
 			system("pause");
@@ -112,21 +146,25 @@ PERSONAGEM *criarPersonagem(){
 			novo_personagem->HP = 120;
 			novo_personagem->ATK = 2;
 			novo_personagem->DEF = 2;
+			novo_personagem->SPD = 11;
 			break;
 		case 2:
 			printf("Voce escolheu o arqueiro");
 			novo_personagem->HP = 100;
 			novo_personagem->ATK = 4;
 			novo_personagem->DEF = 1;
+			novo_personagem->SPD = 30;
 			break;
 		case 3:
 			printf("Voce escolheu o paladino");
 			novo_personagem->HP = 130;
 			novo_personagem->ATK = 1;
 			novo_personagem->DEF = 4;
+			novo_personagem->SPD = 9;
 			break;
 		}	
 	}
+	novo_personagem->posicao = 1;
 	limpar_tela();
 	printf("\nAgora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
@@ -140,3 +178,26 @@ void status_personagem(PERSONAGEM personagem){
 void limpar_tela(){
 	system("cls");
 }
+void atual(int pagina){
+	FILE *fp;
+		char texto[TAM_TEX_MAXIMO];
+		fp = fopen("historia.dat", "rb");
+		fseek(fp, pagina * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
+		fread(texto, sizeof(texto), 1, fp);
+		printf("%s\n", texto);
+		fclose(fp);
+		}
+void olhar(int posicao){
+	FILE *fp;
+	char texto[TAM_TEX_MAXIMO];
+	fp = fopen("olhar.dat", "rb");
+	fseek(fp, posicao * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
+	fread(texto, sizeof(texto), 1, fp);
+	printf("%s", texto);
+	fclose(fp);
+}
+void mover(int posicao, PERSONAGEM *personagem){
+	novo_personagem->posicao = posicao;
+	printf("voce avancou para a pagina %i", posicao);
+}
+
