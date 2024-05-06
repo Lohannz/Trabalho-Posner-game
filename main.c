@@ -30,7 +30,7 @@ int main(){
 	INIMIGO esqueleto;
 	strcpy(esqueleto.nome,"esqueleto");
 	esqueleto.id = 1;
-	esqueleto.HP = 100;
+	esqueleto.HP = 10;
 	esqueleto.ATK = 2;
 	esqueleto.DEF = 1;
 	esqueleto.SPD = 10;
@@ -159,26 +159,31 @@ PERSONAGEM *criarPersonagem(){
 		switch (classe){
 		case 1:
 			printf("Voce escolheu o guerreiro");
-			novo_personagem->HP = 120;
+			novo_personagem->HP = 12;
 			novo_personagem->ATK = 2;
 			novo_personagem->DEF = 2;
 			novo_personagem->SPD = 11;
 			break;
 		case 2:
 			printf("Voce escolheu o arqueiro");
-			novo_personagem->HP = 100;
+			novo_personagem->HP = 10;
 			novo_personagem->ATK = 4;
 			novo_personagem->DEF = 1;
 			novo_personagem->SPD = 30;
 			break;
 		case 3:
 			printf("Voce escolheu o paladino");
-			novo_personagem->HP = 130;
+			novo_personagem->HP = 14;
 			novo_personagem->ATK = 1;
 			novo_personagem->DEF = 4;
 			novo_personagem->SPD = 9;
 			break;
-		}	
+		
+		default:
+			printf("Classe invalidade. Tente novamente!");
+			continue;
+		}
+
 	}sleep(1);
 	novo_personagem->posicao = 0;
 	limpar_tela();
@@ -189,6 +194,7 @@ PERSONAGEM *criarPersonagem(){
 	printf("Seu personagem foi criado!");
 	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,sleep(1));
 	pausar();
+	limpar_tela();
 	return novo_personagem;
 }
 //PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
