@@ -6,16 +6,28 @@
 #include "combate.h"
 #include "logo.h"
 
+<<<<<<< HEAD
 int pagina = 1;
 #define TAM_TEX_MAXIMO 400
 
 void imprimir_menu();
 void save();// funÃ§Ãµes que gravam e carregam informaÃ§Ãµes do jogo
+=======
+
+int pagina = 1;
+#define TAM_TEX_MAXIMO 400
+#define time_sleep sleep(0)
+#define TAM_VET_SAVE 1000
+
+void pausar();
+void imprimir_menu();
+void save();// funções que gravam e carregam informações do jogo
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 void load();//
 void menu_principal();//menu principal do jogo
-void atual(int pagina);// diz em que pagina/parte o personagem estÃ¡
-void mover(int posicao, PERSONAGEM *personagem);//aÃ§Ã£o de mover
-void olhar(int posicao);//aÃ§Ã£o de olhar a posiÃ§Ã£o do jogador
+void atual(int pagina);// diz em que pagina/parte o personagem está¡
+void mover(int posicao, PERSONAGEM *personagem);//ação de mover
+void olhar(int posicao);//ação de olhar a posição do jogador
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
 int rolagem_dado(int faces);// roda um dado
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
@@ -49,7 +61,11 @@ int main(){
 	atual(novo_personagem->posicao);
 	imprimir_menu();
 	scanf("%c", &comando);
+<<<<<<< HEAD
 	switch (comando){
+=======
+	switch (toupper(comando)){
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 		case 'O':
 			olhar(novo_personagem->posicao);
 			pausar();
@@ -70,6 +86,12 @@ int main(){
 		case 'Q':
 			rodando = 0;
 			break;
+<<<<<<< HEAD
+=======
+		case 'P':
+			save(novo_personagem);
+			break;
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 		
 		default:
 			printf("comando invalido\n");
@@ -102,11 +124,19 @@ void menu_principal(){
 
 	while(rodando){
 		logo();
+<<<<<<< HEAD
 		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",sleep(1));
 		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", sleep(1));
 		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", sleep(1));
 		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", sleep(1));
 		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", sleep(1));
+=======
+		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",time_sleep);
+		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", time_sleep);
+		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", time_sleep);
+		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", time_sleep);
+		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", time_sleep);
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 
 		scanf("%d", &escolha);
 		
@@ -149,10 +179,17 @@ PERSONAGEM *criarPersonagem(){
 	int classe=0;
 	
 	printf("Primeiro de tudo, escolha sua classe:\n");
+<<<<<<< HEAD
 	printf("|1-Guerreiro\n", sleep(1));
 	printf("|2-Arqueiro\n",sleep(1));
 	printf("|3-Paladino\n", sleep(1));
 	printf("Sua escolha:", sleep(1));
+=======
+	printf("|1-Guerreiro\n", time_sleep);
+	printf("|2-Arqueiro\n",time_sleep);
+	printf("|3-Paladino\n", time_sleep);
+	printf("Sua escolha:", time_sleep);
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	while(classe < 1 || classe > 3){
 		scanf("%d", &classe);
 		limpar_tela();
@@ -184,22 +221,32 @@ PERSONAGEM *criarPersonagem(){
 			continue;
 		}
 
+<<<<<<< HEAD
 	}sleep(1);
+=======
+	}time_sleep;
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	novo_personagem->posicao = 0;
 	limpar_tela();
 	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
 	limpar_tela();
+<<<<<<< HEAD
 	sleep(1);
 	printf("Seu personagem foi criado!");
 	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,sleep(1));
+=======
+	time_sleep;
+	printf("Seu personagem foi criado!");
+	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,time_sleep);
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	pausar();
 	limpar_tela();
 	return novo_personagem;
 }
 //PRINTA OS ATRIBUTOS E POSIÃ‡ÃƒO DO PERSONAGEM
 void status_personagem(PERSONAGEM personagem){
-	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
+	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa:%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
 }
 void limpar_tela(){
 	system("cls");
@@ -226,7 +273,10 @@ void mover(int posicao, PERSONAGEM *novo_personagem){
 	novo_personagem->posicao = posicao;
 	printf("voce avancou para a pagina %i\n", posicao);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 void pausar() {
     
     fflush(stdin);
@@ -234,5 +284,17 @@ void pausar() {
 }
 void imprimir_menu()	
 		{
+<<<<<<< HEAD
 		printf("%10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair");
 		}
+=======
+		printf("%10s %10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar");
+		}
+void save(PERSONAGEM personagem){
+	FILE *fp;
+	fp = fopen("saves.dat", "wb");
+	int status = personagem.HP;
+	fwrite(status, sizeof(status), 1, fp);
+	fclose(fp);
+}
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f

@@ -21,7 +21,11 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         limpar_tela();
         if(escolha == 1){
             if(atacante->SPD > defensor->SPD){
+<<<<<<< HEAD
                 dano = (defensor->DEF - atacante->ATK)/2;
+=======
+                dano = (atacante->ATK - defensor->DEF)/2;
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
             if(dano < 1){
                 dano = 1;
             } 
@@ -30,7 +34,11 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             sleep(1);
         }
         else if(defensor->SPD > atacante->SPD){
+<<<<<<< HEAD
             dano = (atacante->DEF - defensor->ATK)/2;
+=======
+            dano = (defensor->ATK - atacante->DEF)/2;
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
             if(dano < 1){
                 dano = 1;
             }
@@ -77,4 +85,8 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         }
         
     pausar();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
