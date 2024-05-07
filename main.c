@@ -6,13 +6,6 @@
 #include "combate.h"
 #include "logo.h"
 
-<<<<<<< HEAD
-int pagina = 1;
-#define TAM_TEX_MAXIMO 400
-
-void imprimir_menu();
-void save();// fun√ß√µes que gravam e carregam informa√ß√µes do jogo
-=======
 
 int pagina = 1;
 #define TAM_TEX_MAXIMO 400
@@ -21,13 +14,12 @@ int pagina = 1;
 
 void pausar();
 void imprimir_menu();
-void save();// funÁıes que gravam e carregam informaÁıes do jogo
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
+void save();// funÔøΩÔøΩes que gravam e carregam informaÔøΩÔøΩes do jogo
 void load();//
 void menu_principal();//menu principal do jogo
-void atual(int pagina);// diz em que pagina/parte o personagem est·°
-void mover(int posicao, PERSONAGEM *personagem);//aÁ„o de mover
-void olhar(int posicao);//aÁ„o de olhar a posiÁ„o do jogador
+void atual(int pagina);// diz em que pagina/parte o personagem estÔøΩ
+void mover(int posicao, PERSONAGEM *personagem);//aÔøΩÔøΩo de mover
+void olhar(int posicao);//aÔøΩÔøΩo de olhar a posiÔøΩÔøΩo do jogador
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
 int rolagem_dado(int faces);// roda um dado
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
@@ -61,46 +53,49 @@ int main(){
 	atual(novo_personagem->posicao);
 	imprimir_menu();
 	scanf("%c", &comando);
-<<<<<<< HEAD
-	switch (comando){
-=======
+
 	switch (toupper(comando)){
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
-		case 'O':
+
+		case 'O':// PRECISA CONSERTAR
 			olhar(novo_personagem->posicao);
 			pausar();
 			break;
+
 		case 'S':
 			status_personagem(*novo_personagem);
 			pausar();
 			break;
-		case 'M':
+		
+		case 'M':// PRECISA MUDAR PARA IR PARA FRENTE, E NAO PARA QUALQUER LUGAR DO LIVRO/HISTORIA
 			printf("digite a nova posicao: ");
 			scanf("%i", &nova_posicao);
 			mover(nova_posicao, novo_personagem);
 			pausar();
 			break;
-		case 'C':
+
+		case 'C':// PRECISA MUDAR PARA ENTRAR EM COMBATE COM QUE ESTIVER NA HISTORIA
 			combate(novo_personagem, &esqueleto);
 			break;
 		case 'Q':
 			rodando = 0;
 			break;
-<<<<<<< HEAD
-=======
 		case 'P':
-			save(novo_personagem);
+
+			save(*novo_personagem);//salva os atributos do personagem
+			pausar();
 			break;
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
-		
+		case 'I':
+			menu_principal();
+			break;
 		default:
 			printf("comando invalido\n");
 			break;
 		}
 	}
 	
+	//NAO SEI COMO VAI FUNCIONAR 
 
-	//GRAVA√á√ÉO DA POSI√á√ÉO NA HISTORIA
+	/*//GRAVA√á√ÉO DA POSI√á√ÉO NA HISTORIA
 	FILE *gravar;
 	gravar = fopen("historia.dat", "wb");
 	char texto[TAM_TEX_MAXIMO];
@@ -109,12 +104,7 @@ int main(){
 	fgets(texto, TAM_TEX_MAXIMO, stdin);
 	fwrite(texto, sizeof(texto), 1, gravar);
 	fclose(gravar);
-	
-	//ANDAMENTO DA HIST√ìRIA
-
-	/*while(rodando){
-		atual();
-	}*/
+	*/
 
 	free(novo_personagem); //liberar mem√≥ria alocada
 	return 0;
@@ -124,19 +114,11 @@ void menu_principal(){
 
 	while(rodando){
 		logo();
-<<<<<<< HEAD
-		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",sleep(1));
-		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", sleep(1));
-		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", sleep(1));
-		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", sleep(1));
-		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", sleep(1));
-=======
 		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",time_sleep);
 		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", time_sleep);
 		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", time_sleep);
 		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", time_sleep);
 		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", time_sleep);
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 
 		scanf("%d", &escolha);
 		
@@ -148,9 +130,11 @@ void menu_principal(){
 			novo_personagem = criarPersonagem();
 			rodando = 0;
             break;
-        case 2:
+		
+        case 2:// continua de onde parou no ultimo save
             limpar_tela();
-            //load();
+            load(&novo_personagem);
+			pausar();
             break;
         
         case 3:
@@ -179,17 +163,10 @@ PERSONAGEM *criarPersonagem(){
 	int classe=0;
 	
 	printf("Primeiro de tudo, escolha sua classe:\n");
-<<<<<<< HEAD
-	printf("|1-Guerreiro\n", sleep(1));
-	printf("|2-Arqueiro\n",sleep(1));
-	printf("|3-Paladino\n", sleep(1));
-	printf("Sua escolha:", sleep(1));
-=======
 	printf("|1-Guerreiro\n", time_sleep);
 	printf("|2-Arqueiro\n",time_sleep);
 	printf("|3-Paladino\n", time_sleep);
 	printf("Sua escolha:", time_sleep);
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	while(classe < 1 || classe > 3){
 		scanf("%d", &classe);
 		limpar_tela();
@@ -221,25 +198,15 @@ PERSONAGEM *criarPersonagem(){
 			continue;
 		}
 
-<<<<<<< HEAD
-	}sleep(1);
-=======
 	}time_sleep;
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	novo_personagem->posicao = 0;
 	limpar_tela();
 	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
 	limpar_tela();
-<<<<<<< HEAD
-	sleep(1);
-	printf("Seu personagem foi criado!");
-	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,sleep(1));
-=======
 	time_sleep;
 	printf("Seu personagem foi criado!");
 	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,time_sleep);
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 	pausar();
 	limpar_tela();
 	return novo_personagem;
@@ -273,10 +240,6 @@ void mover(int posicao, PERSONAGEM *novo_personagem){
 	novo_personagem->posicao = posicao;
 	printf("voce avancou para a pagina %i\n", posicao);
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
 void pausar() {
     
     fflush(stdin);
@@ -284,17 +247,49 @@ void pausar() {
 }
 void imprimir_menu()	
 		{
-<<<<<<< HEAD
-		printf("%10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair");
+		printf("%10s %10s %10s %10s %10s %10s %10s \n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
 		}
-=======
-		printf("%10s %10s %10s %10s %10s %10s\n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar");
-		}
+
+//funcao que salva o atributos do personagem
 void save(PERSONAGEM personagem){
+	//cria um ponteiro para o arquivo saves.dat
 	FILE *fp;
 	fp = fopen("saves.dat", "wb");
-	int status = personagem.HP;
-	fwrite(status, sizeof(status), 1, fp);
+	// se nao existe, cria um
+	if (fp == NULL) {
+        printf("N√£o foi poss√≠vel abrir o arquivo para salvar.\n");
+        return;
+    }
+	//se nao for possivel gravar, printa isso ai
+	if(fwrite(&personagem, sizeof(PERSONAGEM), 1, fp) != 1){
+		printf("n√£o foi possivel gravar!");
+	}
+	//se o arquivo gravar, printa isso ai
+	else if(fwrite(&personagem, sizeof(PERSONAGEM), 1, fp) == 1)
+		printf("jogo gravado com sucesso!");
 	fclose(fp);
 }
->>>>>>> b53196fd0a27ae1dadec06e9f9b4bea4fa27679f
+
+//fun√ß√£o que carrega o ultimo save
+void load(PERSONAGEM *personagem) {
+	//cria um ponteiro para ser usado no arquivo saves.dat
+	FILE *fp;
+    fp = fopen("saves.dat", "rb");
+	//se o arquivo nao existir, vai printar isso ai
+	 if (fp == NULL) {
+        printf("nao foi possivel abrir o arquivo de save!\n");
+        return;
+    }
+   //se nao for possivel carregar o arquivo, vai ser printado isso ai
+    if (fread(personagem, sizeof(PERSONAGEM), 1, fp) != 1) {
+        printf("nao leu do arquivo saves.dat\n");
+        fclose(fp);
+        return;
+    }
+	//se o arquivo for lido certo, vai ser printado isso ai e os atributos serao restaurados do arquivo.dat
+	else {
+		printf("Jogo carregado com sucesso!\n");
+		status_personagem(*personagem);
+		}
+    fclose(fp);
+}
