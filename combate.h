@@ -50,44 +50,83 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             sleep(1);
         }
         turno++;    
-    }
-    
-    if(escolha == 2){
-        dado1 = rolagem_dado(6);
-        dado2 = rolagem_dado(6);
-        if(dado1 > dado2){
-            printf("\nConseguiu fugir pelo ladinho hehe");
+        }
+        // SISTEMA DE PONTOS
+        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 2 PONTOS E AVANÇA
+        if(defensor->HP == 0){
+            atacante->pontos += 2;
+            //atacante->posicao += 1;
+        }
+        // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
+        if(atacante->HP <= 0){
+            atacante->pontos -= 2;
+            morte(atacante);
             break;
         }
-        else  if(dado2 > dado1){
-            printf("\nNao conseguiu. Se fodeu!");
-            escolha = 1;
-            continue;
-            
-        }
-        else if(dado1 == dado2){
-            printf("\nVoce quase conseguiu!");
-            escolha = 1;
-            continue;
-        }
-    limpar_tela();
-
-    
-    }
-        }
         
+        
+        if(escolha == 2){
+            dado1 = rolagem_dado(6);
+            dado2 = rolagem_dado(6);
+            if(dado1 > dado2){
+                printf("\nConseguiu fugir pelo ladinho hehe");
+                break;
+            }
+            else  if(dado2 > dado1){
+                printf("\nNao conseguiu. Se fodeu!");
+                escolha = 1;
+                continue;
+                
+            }
+            else if(dado1 == dado2){
+                printf("\nVoce quase conseguiu!");
+                escolha = 1;
+                continue;
+            }
+            limpar_tela();
+
+        
+        }
+    }
+    
     pausar();
 
 }
 
-// PRECISA SER FEITA PARA GERAR QUALQUER MOB, NAO APENAS O ESQUELETO
-void gerar_mob(INIMIGO mob){
-    INIMIGO esqueleto;
-	strcpy(esqueleto.nome,"esqueleto");
-	esqueleto.id = 1;
-	esqueleto.HP = 10;
-	esqueleto.ATK = 2;
-	esqueleto.DEF = 1;
-	esqueleto.SPD = 10;
-	esqueleto.posicao = 0;
+INIMIGO gerar_mob(int tipo){
+    INIMIGO mob;
+
+    switch (tipo) {
+        case 1:
+            strcpy(mob.nome, "esqueleto");
+            mob.id = 1;
+            mob.HP = 10;
+            mob.ATK = 2;
+            mob.DEF = 1;
+            mob.SPD = 10;
+            break;
+        //outros casos para diferentes tipos de mobs
+        default:
+            strcpy(mob.nome, "desconhecido");
+            mob.id = 0;
+            mob.HP = 5;
+            mob.ATK = 1;
+            mob.DEF = 1;
+            mob.SPD = 5;
+            break;
+    }
+
+    return mob;
+}
+
+void morte(PERSONAGEM *personagem){
+    int escolha;
+    printf("Voce morreu!\n");
+    pausar();
+    printf("1-Voltar no save");
+    scanf("%i",&escolha);
+    if(escolha == 1){
+        load(&personagem);
+    }
+
 }

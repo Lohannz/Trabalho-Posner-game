@@ -14,13 +14,15 @@ int pagina = 1;
 
 void pausar();
 void imprimir_menu();
-void save();// fun��es que gravam e carregam informa��es do jogo
-void load();//
+void save(PERSONAGEM *personagem);// fun��es que gravam e carregam informa��es do jogo
+void load(PERSONAGEM **personagem);//
 void menu_principal();//menu principal do jogo
+void ranking();
 void atual(int pagina);// diz em que pagina/parte o personagem est�
 void mover(int posicao, PERSONAGEM *personagem);//a��o de mover
 void olhar(int posicao);//a��o de olhar a posi��o do jogador
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
+void morte();
 int rolagem_dado(int faces);// roda um dado
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 void limpar_tela();//limpa o terminal
@@ -40,7 +42,7 @@ int main(){
 	esqueleto.SPD = 10;
 	esqueleto.posicao = 0;
 
-	menu_principal();
+	menu_principal(&novo_personagem);
 	combate(novo_personagem, &esqueleto);
 
 	while(rodando){	
@@ -73,19 +75,21 @@ int main(){
 			pausar();
 			break;
 
-		case 'C':// PRECISA MUDAR PARA ENTRAR EM COMBATE COM QUE ESTIVER NA HISTORIA
-			combate(novo_personagem, &esqueleto);
-			break;
+		case 'C': {
+                INIMIGO inimigo = gerar_mob(1); //pode usar diferentes tipos para gerar diferentes inimigos TIPOS ->COMBATE.C
+                combate(novo_personagem, &inimigo);
+                break;
+            }
 		case 'Q':
 			rodando = 0;
 			break;
 		case 'P':
 
-			save(*novo_personagem);//salva os atributos do personagem
+			save(novo_personagem);//salva os atributos do personagem
 			pausar();
 			break;
 		case 'I':
-			menu_principal();
+			menu_principal(&novo_personagem);
 			break;
 		default:
 			printf("comando invalido\n");
@@ -109,7 +113,7 @@ int main(){
 	free(novo_personagem); //liberar memória alocada
 	return 0;
 }
-void menu_principal(){
+void menu_principal(PERSONAGEM **novo_personagem){
     int escolha=0; int rodando = 1;
 
 	while(rodando){
@@ -127,13 +131,14 @@ void menu_principal(){
         case 1:
         //chama a criação de personagem
             
-			novo_personagem = criarPersonagem();
+			*novo_personagem = criarPersonagem();
 			rodando = 0;
             break;
 		
         case 2:// continua de onde parou no ultimo save
             limpar_tela();
-            load(&novo_personagem);
+            load(novo_personagem);
+			rodando = 0;
 			pausar();
             break;
         
@@ -200,6 +205,7 @@ PERSONAGEM *criarPersonagem(){
 
 	}time_sleep;
 	novo_personagem->posicao = 0;
+	novo_personagem->pontos = 0;
 	limpar_tela();
 	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
@@ -213,7 +219,7 @@ PERSONAGEM *criarPersonagem(){
 }
 //PRINTA OS ATRIBUTOS E POSIÇÃO DO PERSONAGEM
 void status_personagem(PERSONAGEM personagem){
-	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa:%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.posicao);
+	printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa:%i\nPontos:%i\nAndamento:%i", personagem.nome,personagem.HP, personagem.ATK, personagem.DEF, personagem.pontos,personagem.posicao);
 }
 void limpar_tela(){
 	system("cls");
@@ -251,7 +257,7 @@ void imprimir_menu()
 		}
 
 //funcao que salva o atributos do personagem
-void save(PERSONAGEM personagem){
+void save(PERSONAGEM *personagem){
 	//cria um ponteiro para o arquivo saves.dat
 	FILE *fp;
 	fp = fopen("saves.dat", "wb");
@@ -261,35 +267,40 @@ void save(PERSONAGEM personagem){
         return;
     }
 	//se nao for possivel gravar, printa isso ai
-	if(fwrite(&personagem, sizeof(PERSONAGEM), 1, fp) != 1){
+	if(fwrite(personagem, sizeof(PERSONAGEM), 1, fp) != 1){
 		printf("não foi possivel gravar!");
 	}
 	//se o arquivo gravar, printa isso ai
-	else if(fwrite(&personagem, sizeof(PERSONAGEM), 1, fp) == 1)
+	else if(fwrite(personagem, sizeof(PERSONAGEM), 1, fp) == 1)
 		printf("jogo gravado com sucesso!");
 	fclose(fp);
 }
 
 //função que carrega o ultimo save
-void load(PERSONAGEM *personagem) {
-	//cria um ponteiro para ser usado no arquivo saves.dat
-	FILE *fp;
-    fp = fopen("saves.dat", "rb");
-	//se o arquivo nao existir, vai printar isso ai
-	 if (fp == NULL) {
-        printf("nao foi possivel abrir o arquivo de save!\n");
+void load(PERSONAGEM **personagem) {
+    FILE *fp = fopen("saves.dat", "rb");
+    if (fp == NULL){
+        printf("Não foi possível abrir o arquivo de save!\n");
         return;
     }
-   //se nao for possivel carregar o arquivo, vai ser printado isso ai
-    if (fread(personagem, sizeof(PERSONAGEM), 1, fp) != 1) {
-        printf("nao leu do arquivo saves.dat\n");
+    *personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
+    if(*personagem == NULL){
+        printf("Não foi possível alocar memória!\n");
         fclose(fp);
         return;
     }
-	//se o arquivo for lido certo, vai ser printado isso ai e os atributos serao restaurados do arquivo.dat
-	else {
-		printf("Jogo carregado com sucesso!\n");
-		status_personagem(*personagem);
-		}
+
+    if(fread(*personagem, sizeof(PERSONAGEM), 1, fp) != 1){
+        printf("Não leu do arquivo saves.dat\n");
+        free(*personagem);
+        *personagem = NULL;
+    }
+	else{
+        printf("Jogo carregado com sucesso!\n");
+		limpar_tela();
+        status_personagem(**personagem);
+    }
+
     fclose(fp);
 }
+void ranking(){};
