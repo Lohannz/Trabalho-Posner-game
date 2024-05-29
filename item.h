@@ -17,19 +17,29 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
     
 }
 void usar_item(ITEM item, PERSONAGEM *personagem){
+
     personagem->ATK += item.atk;
     personagem->HP += item.hp;
 }
 
-void printar_inventario(PERSONAGEM personagem){
-    
+void printar_inventario(PERSONAGEM *personagem){
+    int escolha;
     printf("----------------------------SEU INVENTARIO----------------------------");
-    for(int i = 0; i < personagem.qnt_itens;i++){
-        printf("\n\t\t\t\t%i\n%s \nbonus dmg:%i \nbonus hp:%i\n", i + 1 ,personagem.item[i].nome, personagem.item[i].atk, personagem.item[i].hp);
+    for(int i = 0; i < personagem->qnt_itens;i++){
+        printf("\n\t\t\t\t%i\n%s \nbonus dmg:%i \nbonus hp:%i\n", i + 1 ,personagem->item[i].nome, personagem->item[i].atk, personagem->item[i].hp);
         printf("----------------------------------------------------------------------");
 
     }
-
-
-
+    printf("\nUsar item:");
+    scanf("%i", &escolha);
+    if(escolha > 0 && escolha <= personagem->qnt_itens){
+    ITEM item = personagem->item[escolha - 1];
+    usar_item( item, personagem);
+    printf("voce usou %s\n.", item.nome);
+    }
+    else{
+        printf("escolha invalida\n");
+    }
 }
+
+

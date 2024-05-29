@@ -9,6 +9,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     int turno=0;
     printf("Voce achou um %s!\n", defensor->nome);
     printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+        
     while(defensor->HP > 0 && atacante->HP > 0){
         int escolha = 0;
         int dano = 0;
@@ -51,18 +52,6 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         }
         turno++;    
         }
-        // SISTEMA DE PONTOS
-        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 2 PONTOS E AVANÇA
-        if(defensor->HP == 0){
-            atacante->pontos += 2;
-            //atacante->posicao += 1;
-        }
-        // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
-        if(atacante->HP <= 0){
-            atacante->pontos -= 2;
-            morte(atacante);
-            break;
-        }
         
         
         if(escolha == 2){
@@ -88,7 +77,18 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         
         }
     }
-    
+    // SISTEMA DE PONTOS
+        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 2 PONTOS
+    if(defensor->HP <= 0){
+        printf("voce derrotou o %s!\n", defensor->nome);
+        atacante->pontos += 2;
+    }
+    // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
+    if(atacante->HP <= 0){
+        printf("Voce morreu!\n");
+        atacante->pontos -= 2;
+        morte(atacante);
+    }
     pausar();
 
 }
@@ -123,7 +123,7 @@ void morte(PERSONAGEM *personagem){
     int escolha;
     printf("Voce morreu!\n");
     pausar();
-    printf("1-Voltar no save");
+    printf("1-Voltar no save\n");
     scanf("%i",&escolha);
     if(escolha == 1){
         load(&personagem);

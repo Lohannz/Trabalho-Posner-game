@@ -15,10 +15,9 @@ int pagina = 1;
 #define TAM_VET_SAVE 1000
 
 
-
-void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem);
 void usar_item(ITEM item, PERSONAGEM *personagem);
-void printar_inventario(PERSONAGEM personagem);
+void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem);
+void printar_inventario(PERSONAGEM *personagem);
 
 void pausar();
 void imprimir_menu();
@@ -30,7 +29,7 @@ void atual(int pagina, PERSONAGEM *novo_personagem);// diz em que pagina/parte o
 void mover(int posicao, PERSONAGEM *personagem);//a��o de mover
 void olhar(int posicao);//a��o de olhar a posi��o do jogador
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
-void morte();
+void morte(PERSONAGEM *personagem);
 int rolagem_dado(int faces);// roda um dado
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 void limpar_tela();//limpa o terminal
@@ -67,7 +66,7 @@ int main(){
 	switch (toupper(comando)){
 
 		case 'E':// PRECISA CONSERTAR
-			printar_inventario(*novo_personagem);
+			printar_inventario(novo_personagem);
 			pausar();
 			break;
 
@@ -80,6 +79,7 @@ int main(){
 			printf("digite a nova posicao: ");
 			scanf("%i", &nova_posicao);
 			mover(nova_posicao, novo_personagem);
+			limpar_tela();
 			pausar();
 			break;
 
