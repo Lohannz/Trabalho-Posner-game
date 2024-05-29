@@ -6,11 +6,19 @@
 #include "combate.h"
 #include "logo.h"
 
+#include "item.h"
+
 
 int pagina = 1;
 #define TAM_TEX_MAXIMO 400
 #define time_sleep sleep(0)
 #define TAM_VET_SAVE 1000
+
+
+
+void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem);
+void usar_item(ITEM item, PERSONAGEM *personagem);
+void printar_inventario(PERSONAGEM personagem);
 
 void pausar();
 void imprimir_menu();
@@ -18,7 +26,7 @@ void save(PERSONAGEM *personagem);// fun��es que gravam e carregam informa�
 void load(PERSONAGEM **personagem);//
 void menu_principal();//menu principal do jogo
 void ranking();
-void atual(int pagina);// diz em que pagina/parte o personagem est�
+void atual(int pagina, PERSONAGEM *novo_personagem);// diz em que pagina/parte o personagem est�
 void mover(int posicao, PERSONAGEM *personagem);//a��o de mover
 void olhar(int posicao);//a��o de olhar a posi��o do jogador
 void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
@@ -41,7 +49,7 @@ int main(){
 	esqueleto.DEF = 1;
 	esqueleto.SPD = 10;
 	esqueleto.posicao = 0;
-
+	
 	menu_principal(&novo_personagem);
 	combate(novo_personagem, &esqueleto);
 
@@ -52,14 +60,14 @@ int main(){
 	char comando;
 	limpar_tela();
 
-	atual(novo_personagem->posicao);
+	atual(novo_personagem->posicao, novo_personagem);
 	imprimir_menu();
-	scanf("%c", &comando);
+	scanf(" %c", &comando);
 
 	switch (toupper(comando)){
 
-		case 'O':// PRECISA CONSERTAR
-			olhar(novo_personagem->posicao);
+		case 'E':// PRECISA CONSERTAR
+			printar_inventario(*novo_personagem);
 			pausar();
 			break;
 
@@ -118,11 +126,11 @@ void menu_principal(PERSONAGEM **novo_personagem){
 
 	while(rodando){
 		logo();
-		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo",time_sleep);
-		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar", time_sleep);
-		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking", time_sleep);
-		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores", time_sleep);
-		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t", time_sleep);
+		printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo");time_sleep;
+		printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar");time_sleep;
+		printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking");time_sleep;
+		printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores");time_sleep;
+		printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t");time_sleep;
 
 		scanf("%d", &escolha);
 		
@@ -168,10 +176,10 @@ PERSONAGEM *criarPersonagem(){
 	int classe=0;
 	
 	printf("Primeiro de tudo, escolha sua classe:\n");
-	printf("|1-Guerreiro\n", time_sleep);
-	printf("|2-Arqueiro\n",time_sleep);
-	printf("|3-Paladino\n", time_sleep);
-	printf("Sua escolha:", time_sleep);
+	printf("|1-Guerreiro\n");time_sleep;
+	printf("|2-Arqueiro\n");time_sleep;
+	printf("|3-Paladino\n");time_sleep;
+	printf("Sua escolha:");time_sleep;
 	while(classe < 1 || classe > 3){
 		scanf("%d", &classe);
 		limpar_tela();
@@ -206,13 +214,14 @@ PERSONAGEM *criarPersonagem(){
 	}time_sleep;
 	novo_personagem->posicao = 0;
 	novo_personagem->pontos = 0;
+	novo_personagem->qnt_itens = 0;
 	limpar_tela();
 	printf("Agora, escolha o seu nome: ");
 	scanf("%s", novo_personagem->nome);
 	limpar_tela();
 	time_sleep;
 	printf("Seu personagem foi criado!");
-	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF,time_sleep);
+	printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);time_sleep;
 	pausar();
 	limpar_tela();
 	return novo_personagem;
@@ -224,15 +233,6 @@ void status_personagem(PERSONAGEM personagem){
 void limpar_tela(){
 	system("cls");
 }
-void atual(int pagina){
-	FILE *fp;
-		char texto[TAM_TEX_MAXIMO];
-		fp = fopen("historia.dat", "rb");
-		fseek(fp, pagina * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
-		fread(texto, sizeof(texto), 1, fp);
-		printf("%s\n", texto);
-		fclose(fp);
-		}
 void olhar(int posicao){
 	FILE *fp;
 	char texto[TAM_TEX_MAXIMO];
@@ -242,9 +242,9 @@ void olhar(int posicao){
 	printf("%s", texto);
 	fclose(fp);
 }
-void mover(int posicao, PERSONAGEM *novo_personagem){
-	novo_personagem->posicao = posicao;
-	printf("voce avancou para a pagina %i\n", posicao);
+void mover(int nova_posicao, PERSONAGEM *novo_personagem){
+	novo_personagem->posicao = nova_posicao;
+
 }
 void pausar() {
     
@@ -253,9 +253,8 @@ void pausar() {
 }
 void imprimir_menu()	
 		{
-		printf("%10s %10s %10s %10s %10s %10s %10s \n", "[O] Olhar", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
+		printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
 		}
-
 //funcao que salva o atributos do personagem
 void save(PERSONAGEM *personagem){
 	//cria um ponteiro para o arquivo saves.dat
@@ -275,7 +274,6 @@ void save(PERSONAGEM *personagem){
 		printf("jogo gravado com sucesso!");
 	fclose(fp);
 }
-
 //função que carrega o ultimo save
 void load(PERSONAGEM **personagem) {
     FILE *fp = fopen("saves.dat", "rb");
@@ -302,5 +300,18 @@ void load(PERSONAGEM **personagem) {
     }
 
     fclose(fp);
+}
+void atual(int pagina, PERSONAGEM *novo_personagem){
+	FILE *fp;
+		char texto[TAM_TEX_MAXIMO];
+		fp = fopen("historia.dat", "rb");
+		fseek(fp, pagina * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
+		fread(texto, sizeof(texto), 1, fp);
+		printf("%s\n", texto);
+		fclose(fp);
+	if(strstr(texto, "espada") !=NULL){
+		ITEM espada;
+		gerar_item(&espada,"espada flamenjante", 10, 0, novo_personagem);
+	}
 }
 void ranking(){};
