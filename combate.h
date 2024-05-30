@@ -58,17 +58,17 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             dado1 = rolagem_dado(6);
             dado2 = rolagem_dado(6);
             if(dado1 > dado2){
-                printf("\nConseguiu fugir pelo ladinho hehe");
+                printf("\nVoce conseguiu fugir!");
                 break;
             }
             else  if(dado2 > dado1){
-                printf("\nNao conseguiu. Se fodeu!");
+                printf("\nNao conseguiu fugir.");
                 escolha = 1;
                 continue;
                 
             }
             else if(dado1 == dado2){
-                printf("\nVoce quase conseguiu!");
+                printf("\nQuase conseguiu!");
                 escolha = 1;
                 continue;
             }
