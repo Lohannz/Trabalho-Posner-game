@@ -8,7 +8,7 @@ int rolagem_dado(int faces){
 void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     int turno=0;
     printf("Voce achou um %s!\n", defensor->nome);
-    printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+    
         
     while(defensor->HP > 0 && atacante->HP > 0){
         int escolha = 0;
@@ -16,10 +16,13 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         int dado1 = rolagem_dado(6);
         int dado2 = rolagem_dado(6);
 
-        printf("\n|1-Atacar\n");
+        limpar_tela();
+        printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+        printf("|1-Atacar\n");
         printf("|2-Tentar fugir!\n");
         scanf("%i", &escolha);
         limpar_tela();
+        
         if(escolha == 1){
             if(atacante->SPD > defensor->SPD){
                 dano = (atacante->ATK - defensor->DEF)/2;
@@ -64,18 +67,21 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             else  if(dado2 > dado1){
                 printf("\nNao conseguiu fugir.");
                 escolha = 1;
+                pausar();
                 continue;
                 
             }
             else if(dado1 == dado2){
                 printf("\nQuase conseguiu!");
                 escolha = 1;
+                pausar();
                 continue;
             }
-            limpar_tela();
+            
 
         
         }
+        limpar_tela();
     }
     // SISTEMA DE PONTOS
         // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 2 PONTOS

@@ -1,7 +1,10 @@
 
 void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem){
+
+    //verifica se o item ja existe no inventario
     for(int i = 0; i < personagem->qnt_itens; i++){
         if(strcmp(personagem->item[i].nome, nome_item)== 0){
+            printf("Voce ja tem esse item!");
             return;
         }
     }
@@ -16,11 +19,16 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
     personagem->qnt_itens++;
     
 }
-void usar_item(ITEM item, PERSONAGEM *personagem){
-
+void usar_item(int indice, PERSONAGEM *personagem) {
+    ITEM item = personagem->item[indice];
     personagem->ATK += item.atk;
     personagem->HP += item.hp;
+    // Copia o último item do inventário para a posição do item usado
+    personagem->item[indice] = personagem->item[personagem->qnt_itens - 1];
+    // Diminui a quantidade de itens no inventário
+    personagem->qnt_itens--;
 }
+
 
 void printar_inventario(PERSONAGEM *personagem){
     int escolha;
@@ -33,13 +41,13 @@ void printar_inventario(PERSONAGEM *personagem){
     printf("\nUsar item:");
     scanf("%i", &escolha);
     if(escolha > 0 && escolha <= personagem->qnt_itens){
-    ITEM item = personagem->item[escolha - 1];
-    usar_item( item, personagem);
-    printf("voce usou %s\n.", item.nome);
+        usar_item(escolha - 1, personagem);
+        printf("voce usou %s\n.", personagem->item[escolha - 1].nome);
     }
     else{
         printf("escolha invalida\n");
     }
 }
+
 
 
