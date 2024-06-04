@@ -15,7 +15,7 @@ int pagina = 1;
 #define TAM_VET_SAVE 1000
 
 
-void usar_item(ITEM item, PERSONAGEM *personagem);
+
 void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem);
 void printar_inventario(PERSONAGEM *personagem);
 

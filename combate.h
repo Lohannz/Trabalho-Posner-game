@@ -20,6 +20,8 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
         printf("|1-Atacar\n");
         printf("|2-Tentar fugir!\n");
+        printf("|3-Usar item\n");
+        printf("turno: %d\n", (turno/2)+1);
         scanf("%i", &escolha);
         limpar_tela();
         
@@ -31,6 +33,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             } 
             defensor->HP = defensor->HP - dano;
             printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+            printf("\n[Voce causou %d de dano no inimigo!]\n", dano);
             sleep(1);
         }
         else if(defensor->SPD > atacante->SPD){
@@ -40,6 +43,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             }
             atacante->HP = atacante->HP - dano;
             printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+            printf("\n[Voce sofreu %d de dano do inimigo!]\n", dano);
             
         }
         else if(atacante->SPD == defensor->SPD){
@@ -53,7 +57,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             defensor->SPD = temp;
             sleep(1);
         }
-        turno++;    
+        turno+=2;    
         }
         
         
