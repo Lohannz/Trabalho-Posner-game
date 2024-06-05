@@ -81,10 +81,12 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
                 pausar();
                 continue;
             }
-            
-
-        
         }
+        
+        if(escolha == 3){
+        	printar_inventario(atacante);
+		}
+        
         limpar_tela();
     }
     // SISTEMA DE PONTOS
