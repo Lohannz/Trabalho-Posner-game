@@ -45,20 +45,26 @@ void load(PERSONAGEM **personagem) {
 }
 
 void atual(int pagina, PERSONAGEM *novo_personagem){
-
-	FILE *fp;
-	char texto[TAM_TEX_MAXIMO];
-	fp = fopen("historia.dat", "rb");
-	fseek(fp, pagina * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
-	fread(texto, sizeof(texto), 1, fp);
-	printf("%s\n", texto);
-    
+    FILE *fp;
+    char texto[TAM_TEX_MAXIMO];
+    fp = fopen("historia.dat", "rb");
+    if (fp == NULL) {
+        printf("Não foi possível abrir o arquivo da história.\n");
+        return;
+    }
+    fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET); // Ajuste para garantir que a primeira página seja lida corretamente
+    fread(texto, sizeof(char), TAM_TEX_MAXIMO, fp);
+    printf("%s\n", texto);
     fclose(fp);
 }
 
 void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
     switch (novo_personagem->posicao) {
-        case 1:
+
+        case 0:
+            if(escolha == '0')
+                printf("Ta na porra da pagina 0, na qual nao deveria existir!!!");
+        case 1: // Página inicial
             if (escolha == 'L') {
                 novo_personagem->posicao = 2;
             } else if (escolha == 'R') {
@@ -67,7 +73,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 printf("Escolha inválida!\n");
             }
             break;
-        case 2:
+        case 2: // Exemplo de página 2
             if (escolha == 'T') {
                 printf("Você puxa a espada da pedra e sente um grande poder fluindo através de você.\n");
                 // Código para adicionar a espada ao inventário
@@ -78,7 +84,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 printf("Escolha inválida!\n");
             }
             break;
-        case 3:
+        case 3: // Exemplo de página 3
             if (escolha == 'F') {
                 INIMIGO inimigo = gerar_mob(1);
                 combate(novo_personagem, &inimigo);

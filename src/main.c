@@ -176,7 +176,7 @@ PERSONAGEM *criarPersonagem(){
         }
     }
     time_sleep;
-    novo_personagem->posicao = 0;
+    novo_personagem->posicao = 1;
     novo_personagem->pontos = 0;
     novo_personagem->qnt_itens = 0;
     limpar_tela();
