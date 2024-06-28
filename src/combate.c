@@ -5,6 +5,7 @@
 #include<string.h>
 
 
+
 //ROLA o DADO PARA A BATALHA
 int rolagem_dado(int faces){
     int resultado;
@@ -137,6 +138,7 @@ INIMIGO gerar_mob(int tipo){
 
     return mob;
 }
+
 
 void morte(PERSONAGEM *personagem){
     int escolha;

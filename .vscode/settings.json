@@ -60,6 +60,7 @@
     "stdio.h": "c",
     "string.h": "c",
     "struct.h": "c",
-    "combate.h": "c"
+    "combate.h": "c",
+    "stdlib.h": "c"
   }
 }

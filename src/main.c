@@ -10,7 +10,7 @@
 #define time_sleep sleep(0)
 #define TAM_VET_SAVE 1000
 
-int pagina = 1;
+
 
 void pausar();
 void imprimir_menu();
@@ -65,7 +65,7 @@ int main(){
                 printf("Faça sua escolha:\n");
                 scanf(" %c", &comando);
                 fazer_escolha(novo_personagem, toupper(comando));
-                limpar_tela();
+                
                 pausar();
                 break;
             case 'C': {
@@ -176,7 +176,7 @@ PERSONAGEM *criarPersonagem(){
         }
     }
     time_sleep;
-    novo_personagem->posicao = 1;
+    novo_personagem->posicao = 0;
     novo_personagem->pontos = 0;
     novo_personagem->qnt_itens = 0;
     limpar_tela();
@@ -218,100 +218,6 @@ void imprimir_menu(){
     printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] Combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
 }
 
-void save(PERSONAGEM *personagem){
-    FILE *fp;
-    fp = fopen("saves.dat", "wb");
-    if (fp == NULL) {
-        printf("Não foi possível abrir o arquivo para salvar.\n");
-        return;
-    }
-    if(fwrite(personagem, sizeof(PERSONAGEM), 1, fp) != 1){
-        printf("Não foi possível gravar!");
-    } else {
-        printf("Jogo gravado com sucesso!");
-    }
-    fclose(fp);
-}
 
-void load(PERSONAGEM **personagem) {
-    FILE *fp = fopen("saves.dat", "rb");
-    if (fp == NULL){
-        printf("Não foi possível abrir o arquivo de save!\n");
-        return;
-    }
-    *personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
-    if(*personagem == NULL){
-        printf("Não foi possível alocar memória!\n");
-        fclose(fp);
-        return;
-    }
-    if(fread(*personagem, sizeof(PERSONAGEM), 1, fp) != 1){
-        printf("Não leu do arquivo saves.dat\n");
-        free(*personagem);
-        *personagem = NULL;
-    } else {
-        printf("Jogo carregado com sucesso!\n");
-        limpar_tela();
-        status_personagem(**personagem);
-    }
-    fclose(fp);
-}
-
-void atual(int pagina, PERSONAGEM *novo_personagem) {
-    char texto[TAM_TEX_MAXIMO];
-
-    switch(pagina) {
-        case 1:
-            strcpy(texto, "Voce acorda em uma floresta escura e densa. A sua frente, ha dois caminhos: um para a esquerda, que parece levar a uma clareira iluminada, e outro para a direita, que mergulha mais fundo na floresta escura.\nEscolha (L) para ir para a esquerda.\nEscolha (R) para ir para a direita.");
-            break;
-        case 2:
-            strcpy(texto, "Você segue o caminho para a clareira iluminada e encontra uma cabana abandonada com uma espada brilhante e suprimentos.\nEscolha (T) para pegar a espada.\nEscolha (I) para investigar mais a fundo.");
-            break;
-        case 3:
-            strcpy(texto, "Você se aventura mais fundo na floresta escura e é atacado por um esqueleto armado.\nEscolha (F) para lutar contra o esqueleto.\nEscolha (E) para tentar escapar.");
-            break;
-        default:
-            strcpy(texto, "Fim da história.");
-            break;
-    }
-
-    printf("%s\n", texto);
-}
-
-void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
-    switch (novo_personagem->posicao) {
-        case 1:
-            if (escolha == 'L') {
-                novo_personagem->posicao = 2;
-            } else if (escolha == 'R') {
-                novo_personagem->posicao = 3;
-            } else {
-                printf("Escolha inválida!\n");
-            }
-            break;
-        case 2:
-            if (escolha == 'T') {
-                // Código para pegar a espada
-            } else if (escolha == 'I') {
-                // Código para investigar mais a fundo
-            } else {
-                printf("Escolha inválida!\n");
-            }
-            break;
-        case 3:
-            if (escolha == 'F') {
-                INIMIGO inimigo = gerar_mob(1);
-                combate(novo_personagem, &inimigo);
-            } else if (escolha == 'E') {
-                // Código para tentar escapar
-            } else {
-                printf("Escolha inválida!\n");
-            }
-            break;
-        default:
-            printf("Página desconhecida.\n");
-            break;
-    }
-}
 
 void ranking(){};

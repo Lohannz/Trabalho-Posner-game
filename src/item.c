@@ -26,19 +26,35 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
         printf("Inventário cheio!\n");
     }
 }
-void printar_inventario(PERSONAGEM *personagem) {
-    printf("Inventário:\n");
-    for (int i = 0; i < personagem->qnt_itens; i++) {
-        printf("%d - %s (ATK: %d, VIDA: %d)\n", i + 1, personagem->item[i].nome, personagem->item[i].atk, personagem->item[i].hp);
-    }
+void printar_inventario(PERSONAGEM *personagem){
 
-    int item_usar;
-    printf("Digite o número do item para usar ou 0 para voltar: ");
-    scanf("%d", &item_usar);
+    int escolha;
+    printf("----------------------------SEU INVENTARIO----------------------------");
+    for(int i = 0; i < personagem->qnt_itens;i++){
+        printf("\n\t\t\t\t%i\n%s \nbonus dmg:%i \nbonus hp:%i\n", i + 1 ,personagem->item[i].nome, personagem->item[i].atk, personagem->item[i].hp);
+        printf("----------------------------------------------------------------------");
 
-    if (item_usar > 0 && item_usar <= personagem->qnt_itens) {
-        usar_item(item_usar - 1, personagem);
     }
+    
+    printf("\nAperte qualquer letra para sair");
+    printf("\nSua escolha:");
+    scanf("%i", &escolha);
+
+    if(escolha > 0 && escolha <= personagem->qnt_itens){
+        usar_item(escolha - 1, personagem);
+        printf("voce usou %s\n.", personagem->item[escolha - 1].nome);
+    }
+    
+
+    else if (escolha >= 4){
+        return;
+    }
+    
+    else{
+        printf("Escolha Invalida!");
+
+    }
+    
 }
 
 void usar_item(int indice, PERSONAGEM *personagem) {
@@ -56,6 +72,6 @@ void usar_item(int indice, PERSONAGEM *personagem) {
 
         printf("Você usou %s!\n", item.nome);
     } else {
-        printf("Índice de item inválido!\n");
+        printf("Indice de item inválido!\n");
     }
 }
