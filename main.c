@@ -175,7 +175,7 @@ PERSONAGEM *criarPersonagem(){
                 novo_personagem->SPD = 9;
                 break;
             default:
-                printf("Classe invalidade. Tente novamente!");
+                printf("Classe invalida. Tente novamente!");
                 continue;
         }
     }
@@ -219,7 +219,7 @@ void pausar() {
 }
 
 void imprimir_menu(){
-    printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
+    printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] Combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
 }
 
 void save(PERSONAGEM *personagem){
@@ -266,7 +266,7 @@ void atual(int pagina, PERSONAGEM *novo_personagem) {
 
     switch(pagina) {
         case 1:
-            strcpy(texto, "Você acorda em uma floresta escura e densa. À sua frente, há dois caminhos: um para a esquerda, que parece levar a uma clareira iluminada, e outro para a direita, que mergulha mais fundo na floresta escura.\nEscolha (L) para ir para a esquerda.\nEscolha (R) para ir para a direita.");
+            strcpy(texto, "Voce acorda em uma floresta escura e densa. A sua frente, ha dois caminhos: um para a esquerda, que parece levar a uma clareira iluminada, e outro para a direita, que mergulha mais fundo na floresta escura.\nEscolha (L) para ir para a esquerda.\nEscolha (R) para ir para a direita.");
             break;
         case 2:
             strcpy(texto, "Você segue o caminho para a clareira iluminada e encontra uma cabana abandonada com uma espada brilhante e suprimentos.\nEscolha (T) para pegar a espada.\nEscolha (I) para investigar mais a fundo.");
