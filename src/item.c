@@ -1,3 +1,9 @@
+#include"item.h"
+#include<stdio.h>
+#include<string.h>
+
+
+
 void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem) {
     // Verifica se o item já existe no inventário
     for (int i = 0; i < personagem->qnt_itens; i++) {

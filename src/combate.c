@@ -1,3 +1,10 @@
+#include"combate.h"
+
+#include<stdio.h>
+#include <stdlib.h>
+#include<string.h>
+
+
 //ROLA o DADO PARA A BATALHA
 int rolagem_dado(int faces){
     int resultado;

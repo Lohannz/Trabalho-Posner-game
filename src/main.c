@@ -1,20 +1,16 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<time.h>
-#include "struct.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "combate.h"
-#include "logo.h"
+#include "struct.h"
 #include "item.h"
-
+#include "logo.h"
 #define TAM_TEX_MAXIMO 400
 #define time_sleep sleep(0)
 #define TAM_VET_SAVE 1000
 
 int pagina = 1;
-
-void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem);
-void printar_inventario(PERSONAGEM *personagem);
 
 void pausar();
 void imprimir_menu();
@@ -25,7 +21,7 @@ void ranking();
 void atual(int pagina, PERSONAGEM *novo_personagem);// diz em que pagina/parte o personagem está
 void fazer_escolha(PERSONAGEM *novo_personagem, char escolha);
 void olhar(int posicao);//ação de olhar a posição do jogador
-void combate(PERSONAGEM *atacante, INIMIGO *inimigo);//combate
+
 void limpar_tela();//limpa o terminal
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 PERSONAGEM *criarPersonagem();//cria personagem
@@ -175,7 +171,7 @@ PERSONAGEM *criarPersonagem(){
                 novo_personagem->SPD = 9;
                 break;
             default:
-                printf("Classe invalidade. Tente novamente!");
+                printf("Classe invalida. Tente novamente!");
                 continue;
         }
     }
@@ -219,7 +215,7 @@ void pausar() {
 }
 
 void imprimir_menu(){
-    printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
+    printf("%10s %10s %10s %10s %10s %10s %10s \n", "[E] Inventario", "[S] Status", "[M] Mover", "[C] Combate", "[Q] Sair", "[P] Salvar", "[I] Menu");
 }
 
 void save(PERSONAGEM *personagem){
@@ -266,7 +262,7 @@ void atual(int pagina, PERSONAGEM *novo_personagem) {
 
     switch(pagina) {
         case 1:
-            strcpy(texto, "Você acorda em uma floresta escura e densa. À sua frente, há dois caminhos: um para a esquerda, que parece levar a uma clareira iluminada, e outro para a direita, que mergulha mais fundo na floresta escura.\nEscolha (L) para ir para a esquerda.\nEscolha (R) para ir para a direita.");
+            strcpy(texto, "Voce acorda em uma floresta escura e densa. A sua frente, ha dois caminhos: um para a esquerda, que parece levar a uma clareira iluminada, e outro para a direita, que mergulha mais fundo na floresta escura.\nEscolha (L) para ir para a esquerda.\nEscolha (R) para ir para a direita.");
             break;
         case 2:
             strcpy(texto, "Você segue o caminho para a clareira iluminada e encontra uma cabana abandonada com uma espada brilhante e suprimentos.\nEscolha (T) para pegar a espada.\nEscolha (I) para investigar mais a fundo.");

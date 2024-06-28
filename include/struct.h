@@ -1,3 +1,7 @@
+#ifndef STRUCT_H
+#define STRUCT_H
+
+
 typedef struct ITEM {
     char nome[20];
     int atk;
@@ -26,3 +30,4 @@ typedef struct _inimigo {
     int posicao;
 } INIMIGO;
 
+#endif // STRUCT_H
