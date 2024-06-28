@@ -31,6 +31,7 @@ void usar_item(int indice, PERSONAGEM *personagem) {
 
 
 void printar_inventario(PERSONAGEM *personagem){
+    
     int escolha;
     printf("----------------------------SEU INVENTARIO----------------------------");
     for(int i = 0; i < personagem->qnt_itens;i++){
@@ -38,15 +39,18 @@ void printar_inventario(PERSONAGEM *personagem){
         printf("----------------------------------------------------------------------");
 
     }
-    printf("\nUsar item:");
+    printf("\nAperte qualquer letra para sair");
+    printf("\nSua escolha:");
     scanf("%i", &escolha);
+
     if(escolha > 0 && escolha <= personagem->qnt_itens){
         usar_item(escolha - 1, personagem);
         printf("voce usou %s\n.", personagem->item[escolha - 1].nome);
     }
-    else{
-        printf("escolha invalida\n");
-    }
+    else
+        return;
+    
+    
 }
 
 
