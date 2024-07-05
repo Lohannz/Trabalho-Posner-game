@@ -45,6 +45,7 @@ int main(){
         char comando;
         limpar_tela();
         atual(novo_personagem->posicao, novo_personagem);
+        printf("%i", novo_personagem->posicao);
         imprimir_menu();
         scanf(" %c", &comando);
 
