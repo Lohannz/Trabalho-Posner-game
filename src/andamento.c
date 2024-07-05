@@ -7,7 +7,7 @@
 
 void save(PERSONAGEM *personagem){
     FILE *fp;
-    fp = fopen("saves.dat", "wb");
+    fp = fopen("bin/saves.dat", "wb");
     if (fp == NULL) {
         printf("Não foi possível abrir o arquivo para salvar.\n");
         return;
@@ -21,7 +21,7 @@ void save(PERSONAGEM *personagem){
 }
 
 void load(PERSONAGEM **personagem) {
-    FILE *fp = fopen("saves.dat", "rb");
+    FILE *fp = fopen("bin/saves.dat", "rb");
     if (fp == NULL){
         printf("Não foi possível abrir o arquivo de save!\n");
         return;
@@ -47,12 +47,12 @@ void load(PERSONAGEM **personagem) {
 void atual(int pagina, PERSONAGEM *novo_personagem){
     FILE *fp;
     char texto[TAM_TEX_MAXIMO];
-    fp = fopen("historia.dat", "rb");
+    fp = fopen("bin/historia.dat", "rb");
     if (fp == NULL) {
         printf("Não foi possível abrir o arquivo da história.\n");
         return;
     }
-    fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET); // Ajuste para garantir que a primeira página seja lida corretamente
+    fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
     fread(texto, sizeof(char), TAM_TEX_MAXIMO, fp);
     printf("%s\n", texto);
     fclose(fp);
@@ -60,10 +60,6 @@ void atual(int pagina, PERSONAGEM *novo_personagem){
 
 void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
     switch (novo_personagem->posicao) {
-
-        case 0:
-            if(escolha == '0')
-                printf("Ta na porra da pagina 0, na qual nao deveria existir!!!");
         case 1: // Página inicial
             if (escolha == 'L') {
                 novo_personagem->posicao = 2;
@@ -73,31 +69,38 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 printf("Escolha inválida!\n");
             }
             break;
-        case 2: // Exemplo de página 2
+        case 2: // Página com a espada
             if (escolha == 'T') {
-                printf("Você puxa a espada da pedra e sente um grande poder fluindo através de você.\n");
-                // Código para adicionar a espada ao inventário
+                printf("Você puxou a espada com sucesso! Agora você sente um grande poder fluindo através de você.\n");
+                novo_personagem->posicao = 4;
             } else if (escolha == 'I') {
-                printf("Você encontra uma poção de cura escondida perto da pedra.\n");
-                // Código para adicionar a poção ao inventário
+                printf("Investigando a área ao redor, você encontrou uma poção de cura escondida perto da pedra.\n");
+                novo_personagem->posicao = 5;
             } else {
                 printf("Escolha inválida!\n");
             }
             break;
-        case 3: // Exemplo de página 3
+        case 3: // Página com o esqueleto
             if (escolha == 'F') {
                 INIMIGO inimigo = gerar_mob(1);
                 combate(novo_personagem, &inimigo);
+                novo_personagem->posicao = 6;
             } else if (escolha == 'E') {
                 printf("Você consegue escapar do esqueleto e se esconde no vilarejo abandonado.\n");
-                // Código para mudar a posição do personagem
+                novo_personagem->posicao = 7;
             } else {
                 printf("Escolha inválida!\n");
             }
+            break;
+        case 4: // Continuação após puxar a espada
+        case 5: // Continuação após investigar a área
+        case 6: // Continuação após lutar contra o esqueleto
+        case 7: // Continuação após escapar do esqueleto
+            printf("Você continua sua jornada.\n");
+            // Adicione a lógica para a próxima parte da história
             break;
         default:
             printf("Página desconhecida.\n");
             break;
     }
 }
-
