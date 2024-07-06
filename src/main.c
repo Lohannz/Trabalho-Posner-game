@@ -63,7 +63,7 @@ int main(){
                 pausar();
                 break;
             case 'M':
-                printf("Faça sua escolha:\n");
+                printf("Faca sua escolha:\n");
                 scanf(" %c", &comando);
                 fazer_escolha(novo_personagem, toupper(comando));
                 
@@ -125,7 +125,7 @@ void menu_principal(PERSONAGEM **novo_personagem){
                 break;
             case 4:
                 limpar_tela();
-                printf("Fernando Brawl Stars\nGustavo Brawlhalla\nLohan\n");
+                printf("Fernando Brawl Stars\ncugamestavo Brawlhalla\nLohan\n");
                 pausar();
                 break;
             case 0:

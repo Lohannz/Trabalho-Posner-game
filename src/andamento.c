@@ -7,13 +7,13 @@
 
 void save(PERSONAGEM *personagem){
     FILE *fp;
-    fp = fopen("bin/saves.dat", "wb");
+    fp = fopen("saves.dat", "wb");
     if (fp == NULL) {
-        printf("Não foi possível abrir o arquivo para salvar.\n");
+        printf("Nao foi possivel abrir o arquivo para salvar.\n");
         return;
     }
     if(fwrite(personagem, sizeof(PERSONAGEM), 1, fp) != 1){
-        printf("Não foi possível gravar!");
+        printf("Nao foi possível gravar!");
     } else {
         printf("Jogo gravado com sucesso!");
     }
@@ -21,19 +21,19 @@ void save(PERSONAGEM *personagem){
 }
 
 void load(PERSONAGEM **personagem) {
-    FILE *fp = fopen("bin/saves.dat", "rb");
+    FILE *fp = fopen("saves.dat", "rb");
     if (fp == NULL){
-        printf("Não foi possível abrir o arquivo de save!\n");
+        printf("Nao foi possivel abrir o arquivo de save!\n");
         return;
     }
     *personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
     if(*personagem == NULL){
-        printf("Não foi possível alocar memória!\n");
+        printf("Nao foi possível alocar memoria!\n");
         fclose(fp);
         return;
     }
     if(fread(*personagem, sizeof(PERSONAGEM), 1, fp) != 1){
-        printf("Não leu do arquivo saves.dat\n");
+        printf("Nao leu do arquivo saves.dat\n");
         free(*personagem);
         *personagem = NULL;
     } else {
@@ -47,9 +47,9 @@ void load(PERSONAGEM **personagem) {
 void atual(int pagina, PERSONAGEM *novo_personagem){
     FILE *fp;
     char texto[TAM_TEX_MAXIMO];
-    fp = fopen("bin/historia.dat", "rb");
+    fp = fopen("historia.dat", "rb");
     if (fp == NULL) {
-        printf("Não foi possível abrir o arquivo da história.\n");
+        printf("Nao foi possivel abrir o arquivo da historia.\n");
         return;
     }
     fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
@@ -66,18 +66,18 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             } else if (escolha == 'R') {
                 novo_personagem->posicao = 3;
             } else {
-                printf("Escolha inválida!\n");
+                printf("Escolha invalida!\n");
             }
             break;
         case 2: // Página com a espada
             if (escolha == 'T') {
-                printf("Você puxou a espada com sucesso! Agora você sente um grande poder fluindo através de você.\n");
+                printf("Voce puxou a espada com sucesso! Agora voce sente um grande poder fluindo atraves de voce.\n");
                 novo_personagem->posicao = 4;
             } else if (escolha == 'I') {
-                printf("Investigando a área ao redor, você encontrou uma poção de cura escondida perto da pedra.\n");
+                printf("Investigando a area ao redor, voce encontrou uma pocao de cura escondida perto da pedra.\n");
                 novo_personagem->posicao = 5;
             } else {
-                printf("Escolha inválida!\n");
+                printf("Escolha invalida!\n");
             }
             break;
         case 3: // Página com o esqueleto
@@ -86,21 +86,21 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 combate(novo_personagem, &inimigo);
                 novo_personagem->posicao = 6;
             } else if (escolha == 'E') {
-                printf("Você consegue escapar do esqueleto e se esconde no vilarejo abandonado.\n");
+                printf("Voce consegue escapar do esqueleto e se esconde no vilarejo abandonado.\n");
                 novo_personagem->posicao = 7;
             } else {
-                printf("Escolha inválida!\n");
+                printf("Escolha invalida!\n");
             }
             break;
         case 4: // Continuação após puxar a espada
         case 5: // Continuação após investigar a área
         case 6: // Continuação após lutar contra o esqueleto
         case 7: // Continuação após escapar do esqueleto
-            printf("Você continua sua jornada.\n");
+            printf("Voce continua sua jornada.\n");
             // Adicione a lógica para a próxima parte da história
             break;
         default:
-            printf("Página desconhecida.\n");
+            printf("Pagina desconhecida.\n");
             break;
     }
 }
