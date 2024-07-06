@@ -126,16 +126,18 @@ INIMIGO gerar_mob(int tipo){
             mob.SPD = 10;
             break;
         //outros casos para diferentes tipos de mobs
+        case 2:
+            strcpy(mob.nome, "aranha");
+            mob.id = 2;
+            mob.HP = 10;
+            mob.ATK = 6;
+            mob.DEF = 5;
+            mob.SPD = 10;
+            break;
         default:
-            strcpy(mob.nome, "desconhecido");
-            mob.id = 0;
-            mob.HP = 5;
-            mob.ATK = 1;
-            mob.DEF = 1;
-            mob.SPD = 5;
+            printf("NAO existe essa merda");
             break;
     }
-
     return mob;
 }
 
