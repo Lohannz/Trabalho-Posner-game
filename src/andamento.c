@@ -61,46 +61,13 @@ void atual(int pagina, PERSONAGEM *novo_personagem){
 void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
     switch (novo_personagem->posicao) {
         case 1: // Página inicial
-            if (escolha == 'L') {
-                novo_personagem->posicao = 2;
-            } else if (escolha == 'R') {
-                novo_personagem->posicao = 3;
-            } else {
-                printf("Escolha invalida!\n");
+            if(escolha == 'A'){
+                INIMIGO aranha = gerar_mob(2);
+                combate(novo_personagem, &aranha);
+
             }
-            break;
-        case 2: // Página com a espada
-            if (escolha == 'T') {
-                printf("Voce puxou a espada com sucesso! Agora voce sente um grande poder fluindo atraves de voce.\n");
-                novo_personagem->posicao = 4;
-            } else if (escolha == 'I') {
-                printf("Investigando a area ao redor, voce encontrou uma pocao de cura escondida perto da pedra.\n");
-                novo_personagem->posicao = 5;
-            } else {
-                printf("Escolha invalida!\n");
-            }
-            break;
-        case 3: // Página com o esqueleto
-            if (escolha == 'F') {
-                INIMIGO inimigo = gerar_mob(1);
-                combate(novo_personagem, &inimigo);
-                novo_personagem->posicao = 6;
-            } else if (escolha == 'E') {
-                printf("Voce consegue escapar do esqueleto e se esconde no vilarejo abandonado.\n");
-                novo_personagem->posicao = 7;
-            } else {
-                printf("Escolha invalida!\n");
-            }
-            break;
-        case 4: // Continuação após puxar a espada
-        case 5: // Continuação após investigar a área
-        case 6: // Continuação após lutar contra o esqueleto
-        case 7: // Continuação após escapar do esqueleto
-            printf("Voce continua sua jornada.\n");
-            // Adicione a lógica para a próxima parte da história
-            break;
         default:
-            printf("Pagina desconhecida.\n");
+            printf("Não existe essa pagina de escolha ainda");
             break;
     }
 }
