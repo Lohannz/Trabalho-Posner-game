@@ -58,14 +58,241 @@ void atual(int pagina, PERSONAGEM *novo_personagem){
     fclose(fp);
 }
 
-void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
+void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) { 
     switch (novo_personagem->posicao) {
         case 1: // Página inicial
             if(escolha == 'A'){
                 INIMIGO aranha = gerar_mob(2);
                 combate(novo_personagem, &aranha);
+            }
+            if(escolha == 'B'){
+                    ITEM lanche;
+                    gerar_item(&lanche,"lanche",0,4,novo_personagem);
+            }
+            if(escolha == 'C'){
+                novo_personagem->posicao=2;
 
             }
+            if(escolha == 'D'){
+                if(novo_personagem->pontos>=3)
+                novo_personagem->posicao=3;
+                else
+                printf("\nVoce ainda nao esta pronto");
+            }
+            break;
+        case 2:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 3:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 4:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 5:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 6:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 7:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 8:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 9:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 10:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 11:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 12:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 13:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 14:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 15:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 16:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        
+
+        
         default:
             printf("Não existe essa pagina de escolha ainda");
             break;

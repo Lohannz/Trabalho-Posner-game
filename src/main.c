@@ -111,7 +111,13 @@ void menu_principal(PERSONAGEM **novo_personagem){
         limpar_tela();
         switch (escolha){
             case 1:
+                printf("**  Voce acorda com seus 10 anos de idade e percebe sua vila em chamas e escuta gritos vindo de todas as direcoes, ao sair de casa voce se depara com uma gangue de orcs furiosos que levam seu pai embora enquanto sua mae te abraca forte enxugando suas lagrimas.");
+                printf("\n  Eles te deixam jogados no chao enquanto riem e continuam a disseminar o caos, levando seu pai nocauteado embora...Naquele dia, voce jura vinganca e comeca seus treinamentos para tal.");
+                printf("\n  Ao completar 18 anos, voce finalmente se forma na escola de aventureiros e pode escolher o que voce vai querer ser");
+                pausar();
                 *novo_personagem = criarPersonagem();
+                printf("Diretor da guilda:Parabens pela formacao e a escolha da classe, tome uns equipamentos para sua jornada e boa sorte.");
+                pausar();
                 rodando = 0;
                 break;
             case 2:
@@ -163,6 +169,7 @@ PERSONAGEM *criarPersonagem(){
                 novo_personagem->ATK = 4;
                 novo_personagem->DEF = 1;
                 novo_personagem->SPD = 30;
+                
                 break;
             case 3:
                 printf("Voce escolheu o paladino");

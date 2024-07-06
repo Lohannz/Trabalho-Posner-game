@@ -8,7 +8,7 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
     // Verifica se o item já existe no inventário
     for (int i = 0; i < personagem->qnt_itens; i++) {
         if (strcmp(personagem->item[i].nome, nome_item) == 0) {
-            printf("Você já tem esse item!\n");
+            printf("Voce ja tem esse item!\n");
             return;
         }
     }
@@ -23,7 +23,7 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
         personagem->item[personagem->qnt_itens].hp = item->hp;
         personagem->qnt_itens++;
     } else {
-        printf("Inventário cheio!\n");
+        printf("Inventario cheio!\n");
     }
 }
 void printar_inventario(PERSONAGEM *personagem){
@@ -70,8 +70,8 @@ void usar_item(int indice, PERSONAGEM *personagem) {
         }
         personagem->qnt_itens--;
 
-        printf("Você usou %s!\n", item.nome);
+        printf("Voce usou %s!\n", item.nome);
     } else {
-        printf("Indice de item inválido!\n");
+        printf("Indice de item invalido!\n");
     }
 }
