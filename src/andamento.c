@@ -1,9 +1,20 @@
 #include"andamento.h"
+#include"item.h"
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 
 #define TAM_TEX_MAXIMO 400
+
+int ja_tem(PERSONAGEM *personagem, char *nome_item){
+    for (int i = 0; i < personagem->qnt_itens; i++) {
+        if (strcmp(personagem->item[i].nome, nome_item) == 0) {
+            printf("Voce ja tem esse item!\n");
+            return 0;
+        }
+    }
+    return 1;
+}
 
 void save(PERSONAGEM *personagem){
     FILE *fp;
@@ -67,7 +78,10 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             }
             if(escolha == 'B'){
                     ITEM lanche;
+                    if(ja_tem(novo_personagem,"lanche")==1){
+                    printf("Voce faz um super sanduba, mas o presunto acaba");
                     gerar_item(&lanche,"lanche",0,4,novo_personagem);
+                    }
             }
             if(escolha == 'C'){
                 novo_personagem->posicao=2;
