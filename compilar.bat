@@ -12,6 +12,6 @@ if %errorlevel% neq 0 (
 )
 
 rem Execução do programa compilado
-Game.exe
+.\bin\Game.exe
 
 pause
