@@ -7,7 +7,7 @@
 
 void save(PERSONAGEM *personagem){
     FILE *fp;
-    fp = fopen("saves.dat", "wb");
+    fp = fopen("bin/saves.dat", "wb");
     if (fp == NULL) {
         printf("Nao foi possivel abrir o arquivo para salvar.\n");
         return;
@@ -21,7 +21,7 @@ void save(PERSONAGEM *personagem){
 }
 
 void load(PERSONAGEM **personagem) {
-    FILE *fp = fopen("saves.dat", "rb");
+    FILE *fp = fopen("bin/saves.dat", "rb");
     if (fp == NULL){
         printf("Nao foi possivel abrir o arquivo de save!\n");
         return;
@@ -47,7 +47,7 @@ void load(PERSONAGEM **personagem) {
 void atual(int pagina, PERSONAGEM *novo_personagem){
     FILE *fp;
     char texto[TAM_TEX_MAXIMO];
-    fp = fopen("historia.dat", "rb");
+    fp = fopen("bin/historia.dat", "rb");
     if (fp == NULL) {
         printf("Nao foi possivel abrir o arquivo da historia.\n");
         return;

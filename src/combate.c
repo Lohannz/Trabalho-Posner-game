@@ -16,7 +16,7 @@ int rolagem_dado(int faces){
 void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     int turno=0;
     printf("Voce achou um %s!\n", defensor->nome);
-    
+    pausar();
         
     while(defensor->HP > 0 && atacante->HP > 0){
         int escolha = 0;
