@@ -82,201 +82,145 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             break;
         case 2:
             if(escolha == 'A'){
+                if(novo_personagem->SPD==15){
+                    ITEM Anel_de_ouro;
+                    gerar_item(&Anel_de_ouro,"Anel de ouro",2,5,novo_personagem);
+                }
+                else if(novo_personagem->SPD==30){
+                    ITEM flechasfodas;
+                    gerar_item(&flechasfodas,"Flechas fodas",5,0,novo_personagem);
 
+                }
+                else if(novo_personagem->SPD==9){
+                    ITEM luvasboas;
+                    gerar_item(&luvasboas,"Luvas boas",3,5,novo_personagem);
+                }
             }
             if(escolha == 'B'){
-
+                INIMIGO RATO = gerar_mob(3);
+                combate(novo_personagem, &RATO);
             }
             if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=1;
             }
             break;
         case 3:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=4;
             }
             if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=5;
             }
             break;
         case 4:
-            if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
-            }
-            break;
+        if(escolha == 'A'){
+                novo_personagem->posicao=8;
+        }
+        break;
         case 5:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=6;
             }
             if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=7;
             }
             break;
         case 6:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 7:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 8:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=9;
             }
             if(escolha == 'B'){
-
+                ITEM ataduras_de_babosa;
+                gerar_item(&ataduras_de_babosa,"Ataduras de babosa",0,20,novo_personagem);
             }
             if(escolha == 'C'){
 
             }
             if(escolha == 'D'){
-
+                novo_personagem->posicao=13;
             }
             break;
         case 9:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=10;
             }
             if(escolha == 'B'){
-
+                novo_personagem->posicao=11;
             }
             if(escolha == 'C'){
-
+                novo_personagem->posicao=12;
             }
             if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 10:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 11:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 12:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=8;
             }
             break;
         case 13:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=14;
             }
             if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=15;
             }
             break;
         case 14:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=16;
             }
             break;
         case 15:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=16;
             }
             break;
         case 16:
+            if(escolha == 'A'){
+                novo_personagem->posicao=23;
+            }
+            if(escolha == 'B'){
+                novo_personagem->posicao=17;
+            }
+            break;
+        case 17:
+            if(escolha == 'A'){
+                novo_personagem->posicao=18;
+            }
+            if(escolha == 'B'){
+                novo_personagem->posicao=21;
+            }
+            break;
+        case 18:
+            if(escolha == 'A'){
+                INIMIGO Orc = gerar_mob(4);
+                combate(novo_personagem,&Orc);
+                combate(novo_personagem,&Orc);
+            }
+            break;
+        case 19:
             if(escolha == 'A'){
 
             }
@@ -290,10 +234,105 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
 
             }
             break;
-        
+        case 20:
+            if(escolha == 'A'){
 
-        
-        default:
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 21:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 22:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 23:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 24:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 25:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;
+        case 26:
+            if(escolha == 'A'){
+
+            }
+            if(escolha == 'B'){
+
+            }
+            if(escolha == 'C'){
+
+            }
+            if(escolha == 'D'){
+
+            }
+            break;    
+            default:
             printf("Não existe essa pagina de escolha ainda");
             break;
     }

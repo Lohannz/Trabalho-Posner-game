@@ -158,24 +158,27 @@ PERSONAGEM *criarPersonagem(){
         switch (classe){
             case 1:
                 printf("Voce escolheu o guerreiro");
-                novo_personagem->HP = 12;
-                novo_personagem->ATK = 2;
-                novo_personagem->DEF = 2;
-                novo_personagem->SPD = 11;
+                novo_personagem->LEVEL = 1;
+                novo_personagem->HP = 100;
+                novo_personagem->ATK = 19;
+                novo_personagem->DEF = 10;
+                novo_personagem->SPD = 15;
                 break;
             case 2:
                 printf("Voce escolheu o arqueiro");
-                novo_personagem->HP = 10;
-                novo_personagem->ATK = 4;
-                novo_personagem->DEF = 1;
+                novo_personagem->LEVEL = 1;
+                novo_personagem->HP = 90;
+                novo_personagem->ATK = 32;
+                novo_personagem->DEF = 8;
                 novo_personagem->SPD = 30;
                 
                 break;
             case 3:
                 printf("Voce escolheu o paladino");
-                novo_personagem->HP = 14;
-                novo_personagem->ATK = 1;
-                novo_personagem->DEF = 4;
+                novo_personagem->LEVEL = 1;
+                novo_personagem->HP = 140;
+                novo_personagem->ATK = 14;
+                novo_personagem->DEF = 29;
                 novo_personagem->SPD = 9;
                 break;
             default:
@@ -200,7 +203,7 @@ PERSONAGEM *criarPersonagem(){
 }
 
 void status_personagem(PERSONAGEM personagem){
-    printf("Nome:%s\nHP:%i\nAtaque:%i\nDefesa:%i\nPontos:%i\nAndamento:%i", personagem.nome, personagem.HP, personagem.ATK, personagem.DEF, personagem.pontos, personagem.posicao);
+    printf("Nome:%s\nLevel:%i\nHP:%i\nAtaque:%i\nDefesa:%i\nPontos:%i\nAndamento:%i", personagem.nome,personagem.LEVEL, personagem.HP, personagem.ATK, personagem.DEF, personagem.pontos, personagem.posicao);
 }
 
 void limpar_tela(){

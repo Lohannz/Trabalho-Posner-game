@@ -1,11 +1,37 @@
 #include"combate.h"
-
 #include<stdio.h>
 #include <stdlib.h>
 #include<string.h>
 
-
-
+void upar(PERSONAGEM *personagem){
+    personagem->LEVEL++;
+    personagem->HP  += 10;
+    personagem->ATK += 4;
+    personagem->DEF += 2;
+    personagem->SPD += 1;  
+}
+void subir_level(PERSONAGEM *personagem){
+    if(personagem->LEVEL = 1){
+        if(personagem->pontos >= 5){
+            upar;
+        }
+    }
+    if(personagem->LEVEL = 2){
+        if(personagem->pontos >= 12){
+            upar;
+        }
+    }
+    if(personagem->LEVEL = 3){
+        if(personagem->pontos >= 20){
+            upar;
+        }
+    }
+    if(personagem->LEVEL = 4){
+        if(personagem->pontos >= 30){
+            upar;
+        }
+    }
+}
 //ROLA o DADO PARA A BATALHA
 int rolagem_dado(int faces){
     int resultado;
@@ -98,10 +124,10 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         limpar_tela();
     }
     // SISTEMA DE PONTOS
-        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 2 PONTOS
+        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 1 PONTOS
     if(defensor->HP <= 0){
         printf("voce derrotou o %s!\n", defensor->nome);
-        atacante->pontos += 2;
+        atacante->pontos += 1;
     }
     // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
     if(atacante->HP <= 0){
@@ -134,6 +160,27 @@ INIMIGO gerar_mob(int tipo){
             mob.DEF = 5;
             mob.SPD = 10;
             break;
+        case 3:
+            strcpy(mob.nome, "rato bombado");
+            mob.id = 3;
+            mob.HP = 30;
+            mob.ATK = 12;
+            mob.DEF = 8;
+            mob.SPD = 15;
+        case 4:
+            strcpy(mob.nome, "Orc parrudo");
+            mob.id = 4;
+            mob.HP = 40;
+            mob.ATK = 22;
+            mob.DEF = 12;
+            mob.SPD = 12;
+        case 5:
+            strcpy(mob.nome, "Rei Orc");
+            mob.id = 5;
+            mob.HP = 100;
+            mob.ATK = 25;
+            mob.DEF = 15;
+            mob.SPD = 5;
         default:
             printf("NAO existe essa merda");
             break;
