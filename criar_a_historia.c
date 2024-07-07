@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAM_TEX_MAXIMO 400
-#define NUMERO_DE_PAGINAS 10 // Defina o número total de páginas
+#define TAM_TEX_MAXIMO 4000
+#define NUMERO_DE_PAGINAS 30 // Defina o número total de páginas
 
 int main() {
     FILE *gravar;
@@ -11,7 +11,7 @@ int main() {
     char linha[TAM_TEX_MAXIMO];
 
     // Abre o arquivo para gravação em modo binário
-    gravar = fopen("bin/historia.dat", "wb");
+    gravar = fopen("historia.dat", "wb");
     if (gravar == NULL) {
         printf("Erro ao abrir o arquivo.\n");
         return 1;

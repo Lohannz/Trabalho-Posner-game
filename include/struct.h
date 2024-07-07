@@ -10,6 +10,7 @@ typedef struct ITEM {
 
 typedef struct _personagem {
     char nome[50];
+    int LEVEL;
     int HP;
     int ATK;
     int DEF;
