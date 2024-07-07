@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define TAM_TEX_MAXIMO 4000
+
 #define NUMERO_DE_PAGINAS 30 // Defina o número total de páginas
 
 int main() {
