@@ -17,6 +17,7 @@ typedef struct _personagem {
     int DEF;
     int SPD;
     int pontos;
+    int dinheiro;
     ITEM item[2];
     int qnt_itens;
     int posicao;
@@ -33,6 +34,7 @@ typedef struct _inimigo {
     int DEF;
     int SPD;
     int posicao;
+    int dinheiro;
     int pontos;
 } INIMIGO;
 
