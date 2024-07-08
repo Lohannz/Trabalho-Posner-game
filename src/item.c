@@ -4,6 +4,45 @@
 
 
 
+void loja(PERSONAGEM *personagem){
+    printf("---------LOJA---------");
+    printf("");
+    ITEM item;
+
+    int escolha;
+    scanf(" %i", &escolha);
+
+    switch (escolha)
+    {
+    case 1:
+        
+        gerar_item(&item, "baba de orc", (personagem->ATK * 30/100 ), (personagem->HP * 30/100), personagem);
+        
+        break;
+    case 2:
+
+        break;
+
+    case 3:
+        break;
+    
+    case 4:
+        break;
+
+    case 5:
+        break;
+
+    
+    default:
+        break;
+    }
+
+
+}
+
+
+
+
 void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem) {
     // Verifica se o item já existe no inventário
     for (int i = 0; i < personagem->qnt_itens; i++) {
