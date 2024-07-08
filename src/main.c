@@ -51,7 +51,6 @@ int main(){
                 scanf(" %c", &comando);
                 fazer_escolha(novo_personagem, toupper(comando));
                 
-                pausar();
                 break;
             case 'Q':
                 rodando = 0;
@@ -118,7 +117,8 @@ void menu_principal(PERSONAGEM **novo_personagem){
                 break;
             default:
                 break;
-        }  
+
+        }
     }
 }
 

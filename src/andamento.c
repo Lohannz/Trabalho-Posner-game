@@ -3,17 +3,8 @@
 
 #define TAM_TEX_MAXIMO 4000
 
-void tela_final(PERSONAGEM *novo_personagem){
-    printf("Voce terminou o jogo, eh possivel voltar para a tela inicial ou voltar do ultimo save caso nao tenha gostado do caminho tomado");
-    printf("Nome do aventureiro:%s",novo_personagem->nome);
-    if(novo_personagem->reputacao=-1)
-    printf("\nVoce foi um pessimo companheiro de batalha");
-    else if(novo_personagem->reputacao=0)
-    printf("\nVoce foi um companheiro de batalha moralmente neutro");
-    else
-    printf("\nSua astucia numa batalha inspirava os aliados, foi um bom companheiro de batalha");
-    printf("\nPontuação:%i\nInimigos mortos:%i",novo_personagem->pontos,novo_personagem->bichos_mortos);
-}
+
+void tela_final(PERSONAGEM *novo_personagem);
 
 void curar(PERSONAGEM *personagem){
     personagem->HP=personagem->HPMAX;
@@ -61,8 +52,8 @@ void load(PERSONAGEM **personagem) {
         free(*personagem);
         *personagem = NULL;
     } else {
-        printf("Jogo carregado com sucesso!\n");
         limpar_tela();
+        printf("Jogo carregado com sucesso!\n");
         status_personagem(**personagem);
     }
     fclose(fp);
@@ -329,4 +320,31 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             printf("Não existe essa pagina de escolha ainda");
             break;
     }
+}
+
+void tela_final(PERSONAGEM *novo_personagem){
+    limpar_tela();
+    printf("Nome do aventureiro:%s\n",novo_personagem->nome);
+    printf("Reputacao:");
+    if(novo_personagem->reputacao=-1)
+        printf("Voce foi um pessimo companheiro de batalha");
+    else if(novo_personagem->reputacao=0)
+        printf("Voce foi um companheiro de batalha moralmente neutro");
+    
+    else
+        printf("Sua astucia numa batalha inspirava os aliados, foi um bom companheiro de batalha");
+
+    printf("\n\nVoce terminou o jogo, eh possivel voltar para a tela inicial ou voltar do ultimo save caso nao tenha gostado do caminho tomado\n");
+    printf("\nPontuacao:%i\nInimigos mortos:%i",novo_personagem->pontos,novo_personagem->bichos_mortos);
+    int escolha;
+    
+    printf("\n\n|1 - Voltar no ultimo save\n|2 - Ir para tela inicial\n");
+    scanf(" %i", &escolha);
+    if(escolha == 1)
+        load(&novo_personagem);
+    else if(escolha == 2){
+        return;
+    }
+    else
+        printf("Opcao invalida!");
 }
