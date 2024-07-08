@@ -4,7 +4,7 @@
 #include<string.h>
 #include<stdlib.h>
 
-#define TAM_TEX_MAXIMO 400
+#define TAM_TEX_MAXIMO 4000
 
 int ja_tem(PERSONAGEM *personagem, char *nome_item){
     for (int i = 0; i < personagem->qnt_itens; i++) {

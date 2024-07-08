@@ -31,7 +31,7 @@ void printar_inventario(PERSONAGEM *personagem){
     int escolha;
     printf("----------------------------SEU INVENTARIO----------------------------");
     for(int i = 0; i < personagem->qnt_itens;i++){
-        printf("\n\t\t\t\t%i\n%s \nbonus dmg:%i \nbonus hp:%i\n", i + 1 ,personagem->item[i].nome, personagem->item[i].atk, personagem->item[i].hp);
+        printf("\n\t\t\t\t%i\n%s \nBonus Ataque:%i \nBonus HP:%i\n", i + 1 ,personagem->item[i].nome, personagem->item[i].atk, personagem->item[i].hp);
         printf("----------------------------------------------------------------------");
 
     }
@@ -42,7 +42,7 @@ void printar_inventario(PERSONAGEM *personagem){
 
     if(escolha > 0 && escolha <= personagem->qnt_itens){
         usar_item(escolha - 1, personagem);
-        printf("voce usou %s\n.", personagem->item[escolha - 1].nome);
+        printf("Voce usou %s\n.", personagem->item[escolha - 1].nome);
     }
     
 
@@ -64,13 +64,12 @@ void usar_item(int indice, PERSONAGEM *personagem) {
         // Aplica os efeitos do item
         personagem->ATK += item.atk;
         personagem->HP += item.hp;
+        personagem->HPMAX += item.hp;
         // Remove o item do inventário
         for (int i = indice; i < personagem->qnt_itens - 1; i++) {
             personagem->item[i] = personagem->item[i + 1];
         }
         personagem->qnt_itens--;
-
-        printf("Voce usou %s!\n", item.nome);
     } else {
         printf("Indice de item invalido!\n");
     }

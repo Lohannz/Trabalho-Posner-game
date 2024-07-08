@@ -1,6 +1,6 @@
 #include"combate.h"
 #include<stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 #include<string.h>
 
 void upar(PERSONAGEM *personagem){
@@ -13,22 +13,22 @@ void upar(PERSONAGEM *personagem){
 void subir_level(PERSONAGEM *personagem){
     if(personagem->LEVEL = 1){
         if(personagem->pontos >= 5){
-            upar;
+            upar(personagem);
         }
     }
     if(personagem->LEVEL = 2){
         if(personagem->pontos >= 12){
-            upar;
+            upar(personagem);
         }
     }
     if(personagem->LEVEL = 3){
         if(personagem->pontos >= 20){
-            upar;
+            upar(personagem);
         }
     }
     if(personagem->LEVEL = 4){
         if(personagem->pontos >= 30){
-            upar;
+            upar(personagem);
         }
     }
 }
@@ -127,7 +127,8 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 1 PONTOS
     if(defensor->HP <= 0){
         printf("voce derrotou o %s!\n", defensor->nome);
-        atacante->pontos += 1;
+        atacante->pontos += defensor->pontos;
+        subir_level(atacante);
     }
     // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
     if(atacante->HP <= 0){
@@ -150,6 +151,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 2;
             mob.DEF = 1;
             mob.SPD = 10;
+            mob.pontos = 0;
             break;
         //outros casos para diferentes tipos de mobs
         case 2:
@@ -159,6 +161,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 6;
             mob.DEF = 5;
             mob.SPD = 10;
+            mob.pontos = 2;
             break;
         case 3:
             strcpy(mob.nome, "rato bombado");
@@ -167,6 +170,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 12;
             mob.DEF = 8;
             mob.SPD = 15;
+            mob.pontos = 3;
             break;
         case 4:
             strcpy(mob.nome, "Orc parrudo");
@@ -175,6 +179,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 22;
             mob.DEF = 12;
             mob.SPD = 12;
+            mob.pontos = 5;
             break;
         case 5:
             strcpy(mob.nome, "Rei Orc");
@@ -183,6 +188,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 25;
             mob.DEF = 15;
             mob.SPD = 5;
+            mob.pontos = 10;
             break;
         default:
             printf("NAO existe essa merda");

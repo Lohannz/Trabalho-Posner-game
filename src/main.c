@@ -127,7 +127,7 @@ void menu_principal(PERSONAGEM **novo_personagem){
                 pausar();
                 break;
             case 3:
-                printf("Ranking...");
+                printf("Pontos conseguidos: %i", (*novo_personagem)->pontos);
                 break;
             case 4:
                 limpar_tela();

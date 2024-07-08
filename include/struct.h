@@ -12,6 +12,7 @@ typedef struct _personagem {
     char nome[50];
     int LEVEL;
     int HP;
+    int HPMAX;
     int ATK;
     int DEF;
     int SPD;
@@ -29,6 +30,7 @@ typedef struct _inimigo {
     int DEF;
     int SPD;
     int posicao;
+    int pontos;
 } INIMIGO;
 
 #endif // STRUCT_H
