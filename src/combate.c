@@ -41,17 +41,38 @@ int rolagem_dado(int faces){
 
 void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     int turno=0;
-    printf("Voce achou um %s!\n", defensor->nome);
+    printf("Voce achou %s!\n", defensor->nome);
     pausar();
         
-    while(defensor->HP > 0 && atacante->HP > 0){
+    while(1){
         int escolha = 0;
         int dano = 0;
         int dado1 = rolagem_dado(6);
         int dado2 = rolagem_dado(6);
+            
+        // SISTEMA DE PONTOS
+        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA X PONTOS
+        if(defensor->HP <= 0){
+            printf("voce derrotou %s!\n", defensor->nome);
+            printf("dinheiro: %i pontos: %i\n", defensor->dinheiro, defensor->pontos);
+            atacante->pontos += defensor->pontos;
+            atacante->dinheiro += defensor->dinheiro;
+            atacante->bichos_mortos++;
+            subir_level(atacante);
+            break;
 
+        }
+        // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
+        if(atacante->HP <= 0){
+            printf("Voce morreu!\n");
+            atacante->pontos -= 2;
+            // restaura o hp do personagem
+            atacante->HP = 100;
+            morte(atacante);
+            break;
+        }
         limpar_tela();
-        printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+        printf("\nseu HP:%d\nHP %s:%d\n", atacante->HP, defensor->nome, defensor->HP);
         printf("|1-Atacar\n");
         printf("|2-Tentar fugir!\n");
         printf("|3-Usar item\n");
@@ -66,6 +87,10 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
                 dano = 1;
             } 
             defensor->HP = defensor->HP - dano;
+
+            // verifica se o monstro tem menos de 0 hp
+            if(defensor->HP < 0)
+                defensor->HP = 0;
             printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
             printf("\n[Voce causou %d de dano no inimigo!]\n", dano);
             sleep(1);
@@ -94,7 +119,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         turno+=2;    
         }
         
-        
+        // tentativa de fugir!
         if(escolha == 2){
             dado1 = rolagem_dado(6);
             dado2 = rolagem_dado(6);
@@ -123,21 +148,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         
         limpar_tela();
     }
-    // SISTEMA DE PONTOS
-        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA X PONTOS
-    if(defensor->HP <= 0){
-        printf("voce derrotou o %s!\n", defensor->nome);
-        atacante->pontos += defensor->pontos;
-        atacante->bichos_mortos++;
-        subir_level(atacante);
-
-    }
-    // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
-    if(atacante->HP <= 0){
-        printf("Voce morreu!\n");
-        atacante->pontos -= 2;
-        morte(atacante);
-    }
+    
     pausar();
 
 }
@@ -159,19 +170,21 @@ INIMIGO gerar_mob(int tipo){
         case 2:
             strcpy(mob.nome, "aranha");
             mob.id = 2;
-            mob.HP = 30;
-            mob.ATK = 20;
+            mob.HP = 15;
+            mob.ATK = 15;
             mob.DEF = 5;
             mob.SPD = 10;
+            mob.dinheiro = 0;
             mob.pontos = 2;
             break;
         case 3:
             strcpy(mob.nome, "rato bombado");
             mob.id = 3;
-            mob.HP = 50;
+            mob.HP = 23;
             mob.ATK = 25;
             mob.DEF = 13;
             mob.SPD = 15;
+            mob.dinheiro = 0;
             mob.pontos = 3;
             break;
         case 4:
@@ -181,6 +194,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 30;
             mob.DEF = 15;
             mob.SPD = 15;
+            mob.dinheiro = 10;
             mob.pontos = 5;
             break;
         case 5:
@@ -190,6 +204,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 40;
             mob.DEF = 17;
             mob.SPD = 10;
+            mob.dinheiro = 10;
             mob.pontos = 10;
             break;
         default:
