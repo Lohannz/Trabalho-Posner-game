@@ -1,44 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
+// Include
+#include "andamento.h"
 #include "combate.h"
 #include "struct.h"
 #include "item.h"
+#include "somefunctions.h"
 #include "logo.h"
+
+//
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <time.h>
+#include <unistd.h>
+//
 #define TAM_TEX_MAXIMO 400
 #define time_sleep sleep(0)
-#define TAM_VET_SAVE 1000
 
-
-
-void pausar();
+//
 void imprimir_menu();
-void save(PERSONAGEM *personagem);// funções que gravam e carregam informações do jogo
-void load(PERSONAGEM **personagem);//
 void menu_principal(PERSONAGEM **novo_personagem);//menu principal do jogo
 void ranking();
-void atual(int pagina, PERSONAGEM *novo_personagem);// diz em que pagina/parte o personagem está
-void fazer_escolha(PERSONAGEM *novo_personagem, char escolha);
 void olhar(int posicao);//ação de olhar a posição do jogador
-
-void limpar_tela();//limpa o terminal
-void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
+//
 int main(){
     int rodando = 1;
-    
-    INIMIGO esqueleto;
-    strcpy(esqueleto.nome,"esqueleto");
-    esqueleto.id = 1;
-    esqueleto.HP = 10;
-    esqueleto.ATK = 2;
-    esqueleto.DEF = 1;
-    esqueleto.SPD = 10;
-    esqueleto.posicao = 0;
-    
     menu_principal(&novo_personagem);
 
     while (rodando) {    
@@ -80,21 +69,21 @@ int main(){
         }
     }
 
-    free(novo_personagem); //liberar memória alocada
+    free(novo_personagem); //libera memoria alocada
     return 0;
 }
-
+//
 void menu_principal(PERSONAGEM **novo_personagem){
     int escolha = 0; 
     int rodando = 1;
 
     while(rodando){
         logo();
-        printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo");time_sleep;
-        printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar");time_sleep;
-        printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking");time_sleep;
-        printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores");time_sleep;
-        printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t");time_sleep;
+        printf("\n\n\t\t\t\t\t\t\t\t\t|1-Novo Jogo");//////time_sleep;
+        printf("\n\t\t\t\t\t\t\t\t\t|2-Continuar");//////time_sleep;
+        printf("\n\t\t\t\t\t\t\t\t\t|3-Ranking");//////time_sleep;
+        printf("\n\t\t\t\t\t\t\t\t\t|4-Desenvolvedores");//////time_sleep;
+        printf("\n\t\t\t\t\t\t\t\t\t|0-Fechar Programa\n\t\t\t\t\t\t\t\t\t");//////time_sleep;
 
         scanf("%d", &escolha);
         
@@ -133,15 +122,16 @@ void menu_principal(PERSONAGEM **novo_personagem){
     }
 }
 
+//
 PERSONAGEM *criarPersonagem(){
     PERSONAGEM *novo_personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
     int classe = 0;
     
     printf("Primeiro de tudo, escolha sua classe:\n");
-    printf("|1-Guerreiro\n");time_sleep;
-    printf("|2-Arqueiro\n");time_sleep;
-    printf("|3-Paladino\n");time_sleep;
-    printf("Sua escolha:");time_sleep;
+    printf("|1-Guerreiro\n");//////time_sleep;
+    printf("|2-Arqueiro\n");//////time_sleep;
+    printf("|3-Paladino\n");//////time_sleep;
+    printf("Sua escolha:");//////time_sleep;
     while(classe < 1 || classe > 3){
         scanf("%d", &classe);
         limpar_tela();
@@ -176,7 +166,7 @@ PERSONAGEM *criarPersonagem(){
                 continue;
         }
     }
-    time_sleep;
+    //////time_sleep;
     novo_personagem->posicao = 1;
     novo_personagem->dinheiro = 0;
     novo_personagem->pontos = 0;
@@ -186,22 +176,15 @@ PERSONAGEM *criarPersonagem(){
     printf("Agora, escolha o seu nome: ");
     scanf("%s", novo_personagem->nome);
     limpar_tela();
-    time_sleep;
+    //////time_sleep;
     printf("Seu personagem foi criado!");
-    printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);time_sleep;
+    printf("\nSeus atributos sao:\nHP %i\nATAQUE %i\nDEFESA %i",novo_personagem->HP, novo_personagem->ATK, novo_personagem->DEF);////time_sleep;
     pausar();
     limpar_tela();
     return novo_personagem;
 }
 
-void status_personagem(PERSONAGEM personagem){
-    printf("Nome:%s\nLevel:%i\nHP:%i\nAtaque:%i\nDefesa:%i\nDinheiro:%i\nPontos:%i\nAndamento:%i", personagem.nome,personagem.LEVEL, personagem.HP, personagem.ATK, personagem.DEF,personagem.dinheiro, personagem.pontos, personagem.posicao);
-}
-
-void limpar_tela(){
-    system("cls");
-}
-
+//
 void olhar(int posicao){
     FILE *fp;
     char texto[TAM_TEX_MAXIMO];
@@ -212,15 +195,9 @@ void olhar(int posicao){
     fclose(fp);
 }
 
-void pausar() {
-    fflush(stdin);
-    getchar();
-}
-
+//
 void imprimir_menu(){
     printf("%10s %10s %10s %10s %10s %10s %10s \n", "[M] Mover","[E] Inventario", "[S] Status", "[P] Salvar", "[I] Menu", "[Q] Sair");
 }
-
-
 
 void ranking(){};

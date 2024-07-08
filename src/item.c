@@ -1,14 +1,15 @@
 #include"item.h"
-#include<stdio.h>
-#include<string.h>
-
 
 
 void loja(PERSONAGEM *personagem){
-    printf("---------LOJA---------");
-    printf("");
+    printf("-------------LOJA-------------");
+    printf("\n|1 - Baba de orc: 30 bucks\n|2 - hp potion basica: 20\n|3 - hp potion menos basica: 45\n|4 - capitalista: 15");
     ITEM item;
-
+    // valor do item fora do case. Não pode declarar variavel dentro do switch
+    int valor_item1 = 30;
+    int valor_item2 = 20;
+    int valor_item3 = 45;
+    int valor_item4 = 15;
     int escolha;
     scanf(" %i", &escolha);
 
@@ -16,23 +17,54 @@ void loja(PERSONAGEM *personagem){
     {
     case 1:
         
-        gerar_item(&item, "baba de orc", (personagem->ATK * 30/100 ), (personagem->HP * 30/100), personagem);
-        
+        if(personagem->dinheiro == valor_item1){
+            gerar_item(&item, "baba de orc", (personagem->ATK * 30/100 ), (personagem->HP * 30/100), personagem);
+            printf("Voce comprou %s", item.nome);
+            personagem->dinheiro -= valor_item1;
+        }
+        else{
+            printf("Voce nao tem dinheiro suficiente!");
+        }
         break;
     case 2:
 
+        if(personagem->dinheiro == valor_item2){
+            gerar_item(&item, "hp potion basica", 0, 20, personagem);
+            printf("Voce comprou %s", item.nome);
+            personagem->dinheiro -= valor_item2;
+        }
+        else{
+            printf("Voce nao tem dinheiro suficiente!");
+        }
         break;
 
     case 3:
+        if(personagem->dinheiro == valor_item3){
+            gerar_item(&item, "hp potion menos basica que a outra", 0, 45, personagem);
+            printf("Voce comprou %s", item.nome);
+            personagem->dinheiro -= valor_item3;
+        }
+        else{
+            printf("Voce nao tem dinheiro suficiente!");
+        }
         break;
     
     case 4:
+        if(personagem->dinheiro == valor_item4){
+            gerar_item(&item, "capitalista", 0, 0 ,personagem);
+            printf("Voce comprou %s", item.nome);
+            printf("\n Voce consumiu seus pontos e transformou em dinheiro");
+            personagem->dinheiro -= valor_item3;
+            personagem->dinheiro += personagem->pontos;
+            if(personagem->pontos < 0){
+                personagem->pontos = 0;
+            }
+        }
+        else{
+            printf("Voce nao tem dinheiro suficiente!");
+        }
         break;
-
-    case 5:
-        break;
-
-    
+        
     default:
         break;
     }
@@ -91,7 +123,6 @@ void printar_inventario(PERSONAGEM *personagem){
     
     else{
         printf("Escolha Invalida!");
-
     }
     
 }

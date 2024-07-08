@@ -1,8 +1,5 @@
 #include"andamento.h"
-#include"item.h"
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+
 
 #define TAM_TEX_MAXIMO 4000
 
@@ -82,12 +79,17 @@ void atual(int pagina, PERSONAGEM *novo_personagem){
     fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
     fread(texto, sizeof(char), TAM_TEX_MAXIMO, fp);
     printf("%s\n", texto);
+
+    //pagina 8
+    if(pagina == 1)
+        printf("[L] ir a loja");
     fclose(fp);
 }
 
-void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) { 
+void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){ 
     switch (novo_personagem->posicao) {
         case 1: // Página inicial
+            
             if(escolha == 'A'){
                 INIMIGO aranha = gerar_mob(2);
                 combate(novo_personagem, &aranha);
@@ -109,6 +111,9 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 else
                     printf("\nVoce ainda nao esta pronto, mate mais %i bicho(s)", (3 - novo_personagem->bichos_mortos));
                     
+            }
+            if(escolha == 'L'){
+                loja(novo_personagem);
             }
             break;
         case 2:
@@ -186,7 +191,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 gerar_item(&ataduras_de_babosa,"Ataduras de babosa",0,20,novo_personagem);
             }
             if(escolha == 'C'){
-
+                loja(novo_personagem);
             }
             if(escolha == 'D'){
                 novo_personagem->posicao=13;
