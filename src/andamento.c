@@ -104,10 +104,11 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
 
             }
             if(escolha == 'D'){
-                if(novo_personagem->pontos>=3)
+                if(novo_personagem->bichos_mortos>=3)
                 novo_personagem->posicao=3;
                 else
-                printf("\nVoce ainda nao esta pronto");
+                    printf("\nVoce ainda nao esta pronto, mate mais %i bicho(s)", (3 - novo_personagem->bichos_mortos));
+                    
             }
             break;
         case 2:
