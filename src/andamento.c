@@ -6,6 +6,22 @@
 
 #define TAM_TEX_MAXIMO 4000
 
+void tela_final(PERSONAGEM *novo_personagem){
+    printf("Voce terminou o jogo, eh possivel voltar para a tela inicial ou voltar do ultimo save caso nao tenha gostado do caminho tomado");
+    printf("Nome do aventureiro:%s",novo_personagem->nome);
+    if(novo_personagem->reputacao=-1)
+    printf("\nVoce foi um pessimo companheiro de batalha");
+    else if(novo_personagem->reputacao=0)
+    printf("\nVoce foi um companheiro de batalha moralmente neutro");
+    else
+    printf("\nSua astucia numa batalha inspirava os aliados, foi um bom companheiro de batalha");
+    printf("\nPontuação:%i\nInimigos mortos:%i",novo_personagem->pontos,novo_personagem->bichos_mortos);
+}
+
+void curar(PERSONAGEM *personagem){
+    personagem->HP=personagem->HPMAX;
+}
+
 int ja_tem(PERSONAGEM *personagem, char *nome_item){
     for (int i = 0; i < personagem->qnt_itens; i++) {
         if (strcmp(personagem->item[i].nome, nome_item) == 0) {
@@ -80,7 +96,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                     ITEM lanche;
                     if(ja_tem(novo_personagem,"lanche")==1){
                     printf("Voce faz um super sanduba, mas o presunto acaba");
-                    gerar_item(&lanche,"lanche",0,4,novo_personagem);
+                    gerar_item(&lanche,"lanche",0,20,novo_personagem);
                     }
             }
             if(escolha == 'C'){
@@ -96,18 +112,26 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             break;
         case 2:
             if(escolha == 'A'){
-                if(novo_personagem->SPD==15){
+                if(novo_personagem->SPD<=20 && novo_personagem->SPD>=15){
                     ITEM Anel_de_ouro;
-                    gerar_item(&Anel_de_ouro,"Anel de ouro",2,5,novo_personagem);
+                    if(ja_tem(novo_personagem,"Anel de ouro")==1){
+                        gerar_item(&Anel_de_ouro,"Anel de ouro",2,5,novo_personagem);
+                        printf("Voce acha um anel de ouro enferrujado do seu pai");
+                    }
                 }
-                else if(novo_personagem->SPD==30){
+                else if(novo_personagem->SPD>=30){
                     ITEM flechasfodas;
-                    gerar_item(&flechasfodas,"Flechas fodas",5,0,novo_personagem);
-
+                    if(ja_tem(novo_personagem,"Flechas fodas")==1){
+                        gerar_item(&flechasfodas,"Flechas fodas",5,0,novo_personagem);
+                        printf("Voce acha uma aljava velha mas bonita de seu pai");
+                    }
                 }
-                else if(novo_personagem->SPD==9){
+                else if(novo_personagem->SPD>=9 && novo_personagem->SPD<15){
                     ITEM luvasboas;
-                    gerar_item(&luvasboas,"Luvas boas",3,5,novo_personagem);
+                    if(ja_tem(novo_personagem,"Luvas boas")==1){
+                        gerar_item(&luvasboas,"Luvas boas",3,5,novo_personagem);
+                        printf("Voce acha um par de luvas velho de seu pai");
+                    }
                 }
             }
             if(escolha == 'B'){
@@ -124,11 +148,13 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             }
             if(escolha == 'B'){
                 novo_personagem->posicao=5;
+                novo_personagem->reputacao--;
             }
             break;
         case 4:
         if(escolha == 'A'){
-                novo_personagem->posicao=8;
+            curar;
+            novo_personagem->posicao=8;
         }
         break;
         case 5:
@@ -141,6 +167,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             break;
         case 6:
             if(escolha == 'A'){
+                novo_personagem->reputacao+=2;
                 novo_personagem->posicao=8;
             }
             break;
@@ -198,7 +225,11 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 novo_personagem->posicao=14;
             }
             if(escolha == 'B'){
-                novo_personagem->posicao=15;
+                if(novo_personagem->SPD>30){
+                    novo_personagem->posicao=15;
+                }
+                else
+                printf("Seus bracos sao fraquinhos demais para quebrar na mao");
             }
             break;
         case 14:
@@ -209,6 +240,8 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
         case 15:
             if(escolha == 'A'){
                 novo_personagem->posicao=16;
+                ITEM barra;
+                gerar_item(&barra,"Barra de ferro enferrujada",10,0,novo_personagem);
             }
             break;
         case 16:
@@ -225,6 +258,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
             }
             if(escolha == 'B'){
                 novo_personagem->posicao=21;
+                novo_personagem->final=1;
             }
             break;
         case 18:
@@ -232,118 +266,57 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha) {
                 INIMIGO Orc = gerar_mob(4);
                 combate(novo_personagem,&Orc);
                 combate(novo_personagem,&Orc);
+                novo_personagem->posicao=19;
             }
             break;
         case 19:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                if(novo_personagem->final==0)
+                    novo_personagem->posicao=20;
+                else
+                novo_personagem->posicao=22;
             }
             break;
         case 20:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                tela_final(novo_personagem);
             }
             break;
         case 21:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->final=1;
+                novo_personagem->posicao=18;
             }
             break;
         case 22:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                tela_final(novo_personagem);
             }
             break;
         case 23:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                INIMIGO Orc = gerar_mob(4);
+                combate(novo_personagem,&Orc);
             }
             break;
         case 24:
             if(escolha == 'A'){
-
+                novo_personagem->posicao=18;
             }
             if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                novo_personagem->posicao=25;
             }
             break;
         case 25:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                INIMIGO reiorc = gerar_mob(5);
+                combate(novo_personagem,&reiorc);
+                novo_personagem->posicao=26;
             }
             break;
         case 26:
             if(escolha == 'A'){
-
-            }
-            if(escolha == 'B'){
-
-            }
-            if(escolha == 'C'){
-
-            }
-            if(escolha == 'D'){
-
+                tela_final(novo_personagem);
             }
             break;    
             default:

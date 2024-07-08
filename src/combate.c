@@ -8,7 +8,7 @@ void upar(PERSONAGEM *personagem){
     personagem->HP  += 10;
     personagem->ATK += 4;
     personagem->DEF += 2;
-    personagem->SPD += 1;  
+    personagem->SPD += 1;
 }
 void subir_level(PERSONAGEM *personagem){
     if(personagem->LEVEL = 1){
@@ -16,17 +16,17 @@ void subir_level(PERSONAGEM *personagem){
             upar(personagem);
         }
     }
-    if(personagem->LEVEL = 2){
+    else if(personagem->LEVEL = 2){
         if(personagem->pontos >= 12){
             upar(personagem);
         }
     }
-    if(personagem->LEVEL = 3){
+    else if(personagem->LEVEL = 3){
         if(personagem->pontos >= 20){
             upar(personagem);
         }
     }
-    if(personagem->LEVEL = 4){
+    else if(personagem->LEVEL = 4){
         if(personagem->pontos >= 30){
             upar(personagem);
         }
@@ -124,11 +124,13 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
         limpar_tela();
     }
     // SISTEMA DE PONTOS
-        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA 1 PONTOS
+        // SE O PERSONAGEM MATAR O DEFENSOR, GANHA X PONTOS
     if(defensor->HP <= 0){
         printf("voce derrotou o %s!\n", defensor->nome);
         atacante->pontos += defensor->pontos;
+        atacante->bichos_mortos++;
         subir_level(atacante);
+
     }
     // SE PERDER, MENOS 2 PONTOS E VOLTA UMA POSIÇAO NA HISTORIA
     if(atacante->HP <= 0){
@@ -157,8 +159,8 @@ INIMIGO gerar_mob(int tipo){
         case 2:
             strcpy(mob.nome, "aranha");
             mob.id = 2;
-            mob.HP = 10;
-            mob.ATK = 6;
+            mob.HP = 30;
+            mob.ATK = 20;
             mob.DEF = 5;
             mob.SPD = 10;
             mob.pontos = 2;
@@ -166,28 +168,28 @@ INIMIGO gerar_mob(int tipo){
         case 3:
             strcpy(mob.nome, "rato bombado");
             mob.id = 3;
-            mob.HP = 30;
-            mob.ATK = 12;
-            mob.DEF = 8;
+            mob.HP = 50;
+            mob.ATK = 25;
+            mob.DEF = 13;
             mob.SPD = 15;
             mob.pontos = 3;
             break;
         case 4:
             strcpy(mob.nome, "Orc parrudo");
             mob.id = 4;
-            mob.HP = 40;
-            mob.ATK = 22;
-            mob.DEF = 12;
-            mob.SPD = 12;
+            mob.HP = 70;
+            mob.ATK = 30;
+            mob.DEF = 15;
+            mob.SPD = 15;
             mob.pontos = 5;
             break;
         case 5:
             strcpy(mob.nome, "Rei Orc");
             mob.id = 5;
-            mob.HP = 100;
-            mob.ATK = 25;
-            mob.DEF = 15;
-            mob.SPD = 5;
+            mob.HP = 170;
+            mob.ATK = 40;
+            mob.DEF = 17;
+            mob.SPD = 10;
             mob.pontos = 10;
             break;
         default:

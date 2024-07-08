@@ -28,17 +28,7 @@ PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
 int main(){
-    int rodando = 1;
-    
-    INIMIGO esqueleto;
-    strcpy(esqueleto.nome,"esqueleto");
-    esqueleto.id = 1;
-    esqueleto.HP = 10;
-    esqueleto.ATK = 2;
-    esqueleto.DEF = 1;
-    esqueleto.SPD = 10;
-    esqueleto.posicao = 0;
-    
+    int rodando = 1;  
     menu_principal(&novo_personagem);
 
     while (rodando) {    
@@ -66,14 +56,8 @@ int main(){
                 printf("Faca sua escolha:\n");
                 scanf(" %c", &comando);
                 fazer_escolha(novo_personagem, toupper(comando));
-                
                 pausar();
                 break;
-            case 'C': {
-                INIMIGO inimigo = gerar_mob(1);
-                combate(novo_personagem, &inimigo);
-                break;
-            }
             case 'Q':
                 rodando = 0;
                 break;
@@ -158,34 +142,34 @@ PERSONAGEM *criarPersonagem(){
         switch (classe){
             case 1:
                 printf("Voce escolheu o guerreiro");
-                novo_personagem->LEVEL = 1;
-                novo_personagem->HP = 100;
-                novo_personagem->ATK = 19;
-                novo_personagem->DEF = 10;
+                novo_personagem->HP = 120;
+                novo_personagem->ATK = 20;
+                novo_personagem->DEF = 15;
                 novo_personagem->SPD = 15;
                 break;
             case 2:
                 printf("Voce escolheu o arqueiro");
-                novo_personagem->LEVEL = 1;
-                novo_personagem->HP = 90;
-                novo_personagem->ATK = 32;
-                novo_personagem->DEF = 8;
+                novo_personagem->HP =  90;
+                novo_personagem->ATK = 30;
+                novo_personagem->DEF = 10;
                 novo_personagem->SPD = 30;
                 
                 break;
             case 3:
                 printf("Voce escolheu o paladino");
-                novo_personagem->LEVEL = 1;
                 novo_personagem->HP = 140;
-                novo_personagem->ATK = 14;
-                novo_personagem->DEF = 29;
-                novo_personagem->SPD = 9;
+                novo_personagem->ATK = 15;
+                novo_personagem->DEF = 20;
+                novo_personagem->SPD = 10;
                 break;
             default:
                 printf("Classe invalida. Tente novamente!");
                 continue;
         }
     }
+    novo_personagem->LEVEL = 1;
+    novo_personagem->reputacao=0;
+    novo_personagem->final=0;
     time_sleep;
     novo_personagem->posicao = 1;
     novo_personagem->pontos = 0;

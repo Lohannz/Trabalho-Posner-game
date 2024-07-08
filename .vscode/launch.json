@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/lohan/OneDrive/Documentos/vscode/C language/Trabalho-Posner-game",
-      "program": "c:/Users/lohan/OneDrive/Documentos/vscode/C language/Trabalho-Posner-game/build/Debug/outDebug",
+      "cwd": "c:/Users/ferna/Desktop/CU/Trabalho-Posner-game",
+      "program": "c:/Users/ferna/Desktop/CU/Trabalho-Posner-game/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

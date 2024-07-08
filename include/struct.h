@@ -20,6 +20,9 @@ typedef struct _personagem {
     ITEM item[2];
     int qnt_itens;
     int posicao;
+    int reputacao;
+    int final;
+    int bichos_mortos;
 } PERSONAGEM;
 
 typedef struct _inimigo {
