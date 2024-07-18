@@ -205,7 +205,7 @@ INIMIGO gerar_mob(int tipo){
             mob.pontos = 10;
             break;
         default:
-            printf("NAO existe essa merda");
+            printf("NAO existe esse monstro");
             break;
     }
     return mob;
@@ -217,6 +217,7 @@ void morte(PERSONAGEM *personagem){
     printf("Voce morreu!\n");
     pausar();
     printf("1-Voltar no save\n");
+    personagem->HP=personagem->HPMAX;
     scanf("%i",&escolha);
     if(escolha == 1){
         load(&personagem);

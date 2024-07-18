@@ -111,7 +111,7 @@ void menu_principal(PERSONAGEM **novo_personagem){
                 break;
             case 4:
                 limpar_tela();
-                printf("Fernando Brawl Stars\nCUgaymestavo Brawlhalla\nLohan\n");
+                printf("Fernando William\nGustavo Simplicio\nLohan Viera\n");
                 pausar();
                 break;
             case 0:
