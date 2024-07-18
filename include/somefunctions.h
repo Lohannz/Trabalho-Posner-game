@@ -10,6 +10,7 @@
 void limpar_tela();//limpa o terminal
 void status_personagem(PERSONAGEM personagem);//informa os atributos do jogador
 void pausar();
+void curar(PERSONAGEM *personagem,ITEM item);
 
 
 #endif // SOMEFUNCTIONS

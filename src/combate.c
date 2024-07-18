@@ -2,7 +2,7 @@
 
 void upar(PERSONAGEM *personagem){
     personagem->LEVEL++;
-    personagem->HP  += 10;
+    personagem->HPMAX  += 10;
     personagem->ATK += 4;
     personagem->DEF += 2;
     personagem->SPD += 1;
@@ -35,7 +35,7 @@ int rolagem_dado(int faces){
     resultado = rand() % faces + 1;
     return resultado;
 }
-
+//Gera uma luta entre o personagem e o bixo
 void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     int turno=0;
     printf("Voce achou %s!\n", defensor->nome);
@@ -88,7 +88,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
             // verifica se o monstro tem menos de 0 hp
             if(defensor->HP < 0)
                 defensor->HP = 0;
-            printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+            printf("\nseu HP:%d\nHP do %s:%d\n", atacante->HP,defensor->nome ,defensor->HP);
             printf("\n[Voce causou %d de dano no inimigo!]\n", dano);
             sleep(1);
         }
@@ -98,7 +98,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
                 dano = 1;
             }
             atacante->HP = atacante->HP - dano;
-            printf("\nseu HP:%d\nHP do monstro:%d\n", atacante->HP, defensor->HP);
+            printf("\nseu HP:%d\nHP do %s:%d\n", atacante->HP, defensor->nome,defensor->HP);
             printf("\n[Voce sofreu %d de dano do inimigo!]\n", dano);
             
         }
@@ -149,7 +149,7 @@ void combate(PERSONAGEM *atacante, INIMIGO*defensor){
     pausar();
 
 }
-
+//Funcao de gerar determinado tipos de mob, que depende da situação
 INIMIGO gerar_mob(int tipo){
     INIMIGO mob;
 
@@ -171,7 +171,7 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 15;
             mob.DEF = 5;
             mob.SPD = 10;
-            mob.dinheiro = 0;
+            mob.dinheiro = 2;
             mob.pontos = 2;
             break;
         case 3:
@@ -181,27 +181,27 @@ INIMIGO gerar_mob(int tipo){
             mob.ATK = 25;
             mob.DEF = 13;
             mob.SPD = 15;
-            mob.dinheiro = 0;
+            mob.dinheiro = 3;
             mob.pontos = 3;
             break;
         case 4:
             strcpy(mob.nome, "Orc parrudo");
             mob.id = 4;
-            mob.HP = 70;
+            mob.HP = 40;
             mob.ATK = 30;
             mob.DEF = 15;
             mob.SPD = 15;
-            mob.dinheiro = 10;
+            mob.dinheiro = 15;
             mob.pontos = 5;
             break;
         case 5:
             strcpy(mob.nome, "Rei Orc");
             mob.id = 5;
-            mob.HP = 170;
-            mob.ATK = 40;
+            mob.HP = 100;
+            mob.ATK = 30;
             mob.DEF = 17;
             mob.SPD = 10;
-            mob.dinheiro = 10;
+            mob.dinheiro = 20;
             mob.pontos = 10;
             break;
         default:
@@ -220,6 +220,7 @@ void morte(PERSONAGEM *personagem){
     scanf("%i",&escolha);
     if(escolha == 1){
         load(&personagem);
+
     }
 
 }

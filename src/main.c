@@ -21,7 +21,6 @@
 void imprimir_menu();
 void menu_principal(PERSONAGEM **novo_personagem);//menu principal do jogo
 void ranking();
-void olhar(int posicao);//ação de olhar a posição do jogador
 PERSONAGEM *criarPersonagem();//cria personagem
 PERSONAGEM *novo_personagem;
 
@@ -30,13 +29,15 @@ int main(){
     int rodando = 1;
     menu_principal(&novo_personagem);
 
-    while (rodando) {    
+    //Looping do jogo
+    while (rodando) {
         char comando;
         limpar_tela();
         atual(novo_personagem->posicao, novo_personagem);
         imprimir_menu();
         scanf(" %c", &comando);
 
+    //Pega a escolha do player e realiza as funções
         switch (toupper(comando)) {
             case 'E':
                 printar_inventario(novo_personagem);
@@ -71,7 +72,7 @@ int main(){
     free(novo_personagem); //libera memoria alocada
     return 0;
 }
-//
+//Tela inicial do jogo
 void menu_principal(PERSONAGEM **novo_personagem){
     int escolha = 0; 
     int rodando = 1;
@@ -106,10 +107,11 @@ void menu_principal(PERSONAGEM **novo_personagem){
                 break;
             case 3:
                 printf("Pontos conseguidos: %i", (*novo_personagem)->pontos);
+                pausar();
                 break;
             case 4:
                 limpar_tela();
-                printf("Fernando Brawl Stars\ncugamestavo Brawlhalla\nLohan\n");
+                printf("Fernando Brawl Stars\nCUgaymestavo Brawlhalla\nLohan\n");
                 pausar();
                 break;
             case 0:
@@ -122,22 +124,24 @@ void menu_principal(PERSONAGEM **novo_personagem){
     }
 }
 
-//
+//Função geradora de personagens e atributos
 PERSONAGEM *criarPersonagem(){
     PERSONAGEM *novo_personagem = (PERSONAGEM*) malloc(sizeof(PERSONAGEM));
-    int classe = 0;
-    
-    printf("Primeiro de tudo, escolha sua classe:\n");
+    char classe = ' ';
+    int inteiro=0;
+    while(inteiro != 1 && inteiro !=2 && inteiro != 3){
+    printf("\nPrimeiro de tudo, escolha sua classe:\n");
     printf("|1-Guerreiro\n");//////time_sleep;
     printf("|2-Arqueiro\n");//////time_sleep;
     printf("|3-Paladino\n");//////time_sleep;
     printf("Sua escolha:");//////time_sleep;
-    while(classe < 1 || classe > 3){
-        scanf("%d", &classe);
+        scanf(" %c", &classe);
         limpar_tela();
-        switch (classe){
+        inteiro=classe-'0';
+        switch (inteiro){
             case 1:
                 printf("Voce escolheu o guerreiro");
+                novo_personagem->classe = 1;
                 novo_personagem->LEVEL = 1;
                 novo_personagem->HP = 100;
                 novo_personagem->ATK = 19;
@@ -146,15 +150,16 @@ PERSONAGEM *criarPersonagem(){
                 break;
             case 2:
                 printf("Voce escolheu o arqueiro");
+                novo_personagem->classe = 2;
                 novo_personagem->LEVEL = 1;
                 novo_personagem->HP = 90;
                 novo_personagem->ATK = 32;
                 novo_personagem->DEF = 8;
                 novo_personagem->SPD = 30;
-                
                 break;
             case 3:
                 printf("Voce escolheu o paladino");
+                novo_personagem->classe = 3;
                 novo_personagem->LEVEL = 1;
                 novo_personagem->HP = 140;
                 novo_personagem->ATK = 14;
@@ -162,11 +167,13 @@ PERSONAGEM *criarPersonagem(){
                 novo_personagem->SPD = 9;
                 break;
             default:
-                printf("Classe invalida. Tente novamente!");
-                continue;
+            printf("Classe invalida. Tente novamente!");
+            continue;
         }
+        pausar();
     }
     //////time_sleep;
+    novo_personagem->HPMAX=novo_personagem->HP;
     novo_personagem->posicao = 1;
     novo_personagem->dinheiro = 0;
     novo_personagem->pontos = 0;
@@ -183,21 +190,9 @@ PERSONAGEM *criarPersonagem(){
     limpar_tela();
     return novo_personagem;
 }
-
 //
-void olhar(int posicao){
-    FILE *fp;
-    char texto[TAM_TEX_MAXIMO];
-    fp = fopen("olhar.dat", "rb");
-    fseek(fp, posicao * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
-    fread(texto, sizeof(texto), 1, fp);
-    printf("%s", texto);
-    fclose(fp);
-}
 
 //
 void imprimir_menu(){
     printf("%10s %10s %10s %10s %10s %10s %10s \n", "[M] Mover","[E] Inventario", "[S] Status", "[P] Salvar", "[I] Menu", "[Q] Sair");
 }
-
-void ranking(){};

@@ -1,9 +1,9 @@
 #include"item.h"
 
-
+//Abre a loja
 void loja(PERSONAGEM *personagem){
     printf("-------------LOJA-------------");
-    printf("\n|1 - Baba de orc: 30 bucks\n|2 - hp potion basica: 20\n|3 - hp potion menos basica: 45\n|4 - capitalista: 15");
+    printf("\n|1 - Baba de orc: 10 coins\n|2 - hp potion basica: 20 coins\n|3 - hp potion menos basica: 30 coins\n|4 - capitalista: 15 coins");
     ITEM item;
     // valor do item fora do case. Não pode declarar variavel dentro do switch
     int valor_item1 = 30;
@@ -74,7 +74,7 @@ void loja(PERSONAGEM *personagem){
 
 
 
-
+//Gera um item específico e dá uma opção ao player de usar ou nao, testando se ele realmente tem esse item
 void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, PERSONAGEM *personagem) {
     // Verifica se o item já existe no inventário
     for (int i = 0; i < personagem->qnt_itens; i++) {
@@ -97,6 +97,7 @@ void gerar_item(ITEM *item, char *nome_item, int bonus_ataque, int bonus_vida, P
         printf("Inventario cheio!\n");
     }
 }
+//Printa o inventario e faz a escolha de itens
 void printar_inventario(PERSONAGEM *personagem){
 
     int escolha;
@@ -110,7 +111,7 @@ void printar_inventario(PERSONAGEM *personagem){
     printf("\nAperte qualquer letra para sair");
     printf("\nSua escolha:");
     scanf("%i", &escolha);
-
+    
     if(escolha > 0 && escolha <= personagem->qnt_itens){
         usar_item(escolha - 1, personagem);
         printf("Voce usou %s\n.", personagem->item[escolha - 1].nome);
@@ -126,20 +127,18 @@ void printar_inventario(PERSONAGEM *personagem){
     }
     
 }
-
+//Função de usar o item e o remove do inventário;
 void usar_item(int indice, PERSONAGEM *personagem) {
     if (indice >= 0 && indice < personagem->qnt_itens) {
         ITEM item = personagem->item[indice];
 
         // Aplica os efeitos do item
         personagem->ATK += item.atk;
-        personagem->HP += item.hp;
-        personagem->HPMAX += item.hp;
+        curar(personagem,item);
         // Remove o item do inventário
         for (int i = indice; i < personagem->qnt_itens - 1; i++) {
             personagem->item[i] = personagem->item[i + 1];
         }
-        personagem->qnt_itens--;
     } else {
         printf("Indice de item invalido!\n");
     }

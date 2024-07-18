@@ -6,10 +6,8 @@
 
 void tela_final(PERSONAGEM *novo_personagem);
 
-void curar(PERSONAGEM *personagem){
-    personagem->HP=personagem->HPMAX;
-}
 
+//Detecta se o player ja tem o item
 int ja_tem(PERSONAGEM *personagem, char *nome_item){
     for (int i = 0; i < personagem->qnt_itens; i++) {
         if (strcmp(personagem->item[i].nome, nome_item) == 0) {
@@ -19,7 +17,7 @@ int ja_tem(PERSONAGEM *personagem, char *nome_item){
     }
     return 1;
 }
-
+//Salva o save do player
 void save(PERSONAGEM *personagem){
     FILE *fp;
     fp = fopen("saves.dat", "wb");
@@ -34,7 +32,7 @@ void save(PERSONAGEM *personagem){
     }
     fclose(fp);
 }
-
+//Carrega o save do player
 void load(PERSONAGEM **personagem) {
     FILE *fp = fopen("saves.dat", "rb");
     if (fp == NULL){
@@ -58,7 +56,7 @@ void load(PERSONAGEM **personagem) {
     }
     fclose(fp);
 }
-
+//Imprime a página atual do jogador
 void atual(int pagina, PERSONAGEM *novo_personagem){
     FILE *fp;
     char texto[TAM_TEX_MAXIMO];
@@ -70,14 +68,11 @@ void atual(int pagina, PERSONAGEM *novo_personagem){
     fseek(fp, (pagina - 1) * TAM_TEX_MAXIMO * sizeof(char), SEEK_SET);
     fread(texto, sizeof(char), TAM_TEX_MAXIMO, fp);
     printf("%s\n", texto);
-
-    //pagina 8
-    if(pagina == 1)
-        printf("[L] ir a loja");
     fclose(fp);
 }
 
-void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){ 
+//Responsável pelas escolhas
+void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
     switch (novo_personagem->posicao) {
         case 1: // Página inicial
             
@@ -101,29 +96,26 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 novo_personagem->posicao=3;
                 else
                     printf("\nVoce ainda nao esta pronto, mate mais %i bicho(s)", (3 - novo_personagem->bichos_mortos));
-                    
             }
-            if(escolha == 'L'){
-                loja(novo_personagem);
-            }
+            pausar();
             break;
         case 2:
             if(escolha == 'A'){
-                if(novo_personagem->SPD<=20 && novo_personagem->SPD>=15){
+                if(novo_personagem->classe == 1){
                     ITEM Anel_de_ouro;
                     if(ja_tem(novo_personagem,"Anel de ouro")==1){
                         gerar_item(&Anel_de_ouro,"Anel de ouro",2,5,novo_personagem);
                         printf("Voce acha um anel de ouro enferrujado do seu pai");
                     }
                 }
-                else if(novo_personagem->SPD>=30){
+                else if(novo_personagem->classe == 2){
                     ITEM flechasfodas;
                     if(ja_tem(novo_personagem,"Flechas fodas")==1){
                         gerar_item(&flechasfodas,"Flechas fodas",5,0,novo_personagem);
                         printf("Voce acha uma aljava velha mas bonita de seu pai");
                     }
                 }
-                else if(novo_personagem->SPD>=9 && novo_personagem->SPD<15){
+                else if(novo_personagem->classe == 3){
                     ITEM luvasboas;
                     if(ja_tem(novo_personagem,"Luvas boas")==1){
                         gerar_item(&luvasboas,"Luvas boas",3,5,novo_personagem);
@@ -138,6 +130,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'C'){
                 novo_personagem->posicao=1;
             }
+            pausar();
             break;
         case 3:
             if(escolha == 'A'){
@@ -147,12 +140,14 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 novo_personagem->posicao=5;
                 novo_personagem->reputacao--;
             }
+            pausar();
             break;
         case 4:
         if(escolha == 'A'){
             curar;
             novo_personagem->posicao=8;
         }
+        pausar();
         break;
         case 5:
             if(escolha == 'A'){
@@ -161,17 +156,20 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'B'){
                 novo_personagem->posicao=7;
             }
+            pausar();
             break;
         case 6:
             if(escolha == 'A'){
                 novo_personagem->reputacao+=2;
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 7:
             if(escolha == 'A'){
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 8:
             if(escolha == 'A'){
@@ -187,6 +185,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'D'){
                 novo_personagem->posicao=13;
             }
+            pausar();
             break;
         case 9:
             if(escolha == 'A'){
@@ -201,21 +200,25 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'D'){
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 10:
             if(escolha == 'A'){
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 11:
             if(escolha == 'A'){
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 12:
             if(escolha == 'A'){
                 novo_personagem->posicao=8;
             }
+            pausar();
             break;
         case 13:
             if(escolha == 'A'){
@@ -228,11 +231,13 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 else
                 printf("Seus bracos sao fraquinhos demais para quebrar na mao");
             }
+            pausar();
             break;
         case 14:
             if(escolha == 'A'){
                 novo_personagem->posicao=16;
             }
+            pausar();
             break;
         case 15:
             if(escolha == 'A'){
@@ -240,6 +245,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 ITEM barra;
                 gerar_item(&barra,"Barra de ferro enferrujada",10,0,novo_personagem);
             }
+            pausar();
             break;
         case 16:
             if(escolha == 'A'){
@@ -248,6 +254,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'B'){
                 novo_personagem->posicao=17;
             }
+            pausar();
             break;
         case 17:
             if(escolha == 'A'){
@@ -257,6 +264,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 novo_personagem->posicao=21;
                 novo_personagem->final=1;
             }
+            pausar();
             break;
         case 18:
             if(escolha == 'A'){
@@ -265,6 +273,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 combate(novo_personagem,&Orc);
                 novo_personagem->posicao=19;
             }
+            pausar();
             break;
         case 19:
             if(escolha == 'A'){
@@ -273,6 +282,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 else
                 novo_personagem->posicao=22;
             }
+            pausar();
             break;
         case 20:
             if(escolha == 'A'){
@@ -284,17 +294,21 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 novo_personagem->final=1;
                 novo_personagem->posicao=18;
             }
+            pausar();
             break;
         case 22:
             if(escolha == 'A'){
                 tela_final(novo_personagem);
             }
+            pausar();
             break;
         case 23:
             if(escolha == 'A'){
                 INIMIGO Orc = gerar_mob(4);
                 combate(novo_personagem,&Orc);
+                novo_personagem->posicao=24;
             }
+            pausar();
             break;
         case 24:
             if(escolha == 'A'){
@@ -303,6 +317,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             if(escolha == 'B'){
                 novo_personagem->posicao=25;
             }
+            pausar();
             break;
         case 25:
             if(escolha == 'A'){
@@ -310,6 +325,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
                 combate(novo_personagem,&reiorc);
                 novo_personagem->posicao=26;
             }
+            pausar();
             break;
         case 26:
             if(escolha == 'A'){
@@ -321,7 +337,7 @@ void fazer_escolha(PERSONAGEM *novo_personagem, char escolha){
             break;
     }
 }
-
+//Após terminar o jogo, a tela final é gerada mostrando os status dos players
 void tela_final(PERSONAGEM *novo_personagem){
     limpar_tela();
     printf("Nome do aventureiro:%s\n",novo_personagem->nome);
@@ -338,12 +354,12 @@ void tela_final(PERSONAGEM *novo_personagem){
     printf("\nPontuacao:%i\nInimigos mortos:%i",novo_personagem->pontos,novo_personagem->bichos_mortos);
     int escolha;
     
-    printf("\n\n|1 - Voltar no ultimo save\n|2 - Ir para tela inicial\n");
+    printf("\n\n|1 - Voltar no ultimo save\n|2 - Ir para fechar o jogo\n");
     scanf(" %i", &escolha);
     if(escolha == 1)
         load(&novo_personagem);
     else if(escolha == 2){
-        return;
+        exit(0);
     }
     else
         printf("Opcao invalida!");

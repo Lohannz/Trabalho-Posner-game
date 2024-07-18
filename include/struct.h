@@ -2,13 +2,13 @@
 #define STRUCT_H
 
 
-typedef struct ITEM {
+typedef struct ITEM { //struct do item
     char nome[20];
     int atk;
     int hp;
 } ITEM;
 
-typedef struct _personagem {
+typedef struct _personagem { //struct do personagem
     char nome[50];
     int LEVEL;
     int HP;
@@ -18,15 +18,16 @@ typedef struct _personagem {
     int SPD;
     int pontos;
     int dinheiro;
-    ITEM item[2];
+    ITEM item[10];
     int qnt_itens;
     int posicao;
     int reputacao;
     int final;
     int bichos_mortos;
+    int classe;
 } PERSONAGEM;
 
-typedef struct _inimigo {
+typedef struct _inimigo {  //struct do inimigo
     int id;
     char nome[50];
     int HP;
